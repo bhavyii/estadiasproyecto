@@ -98,3 +98,68 @@ footer {
     justify-content: center;
     align-items: center;
 }
+
+table.gris {
+  background-color: #f2f2f2; /* Fondo gris más claro */
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  border-radius: 10px;
+}
+
+table.gris th {
+  background-color: #d4d4d4; /* Encabezado gris más oscuro */
+  color: white;
+  border: 1px solid #000000;
+  padding: 10px;
+  text-align: center;
+}
+
+table.gris td {
+  border: 1px solid #000000;
+  padding: 10px;
+  text-align: center;
+}
+
+table.gris tr:nth-child(even) {
+  background-color: #e6e6e6; /* Filas pares en gris más claro */
+}
+
+table.gris tr:hover {
+  background-color: #cccccc; /* Efecto hover en gris aún más claro */
+}
+
+/* Estilos de los botones */
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.btn.verde {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn.azul {
+  background-color: #3498DB;
+  color: white;
+}
+
+.btn.rojo {
+  background-color: #E74C3C;
+  color: white;
+}
+
+/* Estilos para el caption */
+caption {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  background-color: #1ab192;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+}
