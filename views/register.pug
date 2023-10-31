@@ -1,0 +1,59 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    base(href='/register')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='style/styles.css')
+    title Registro
+  body
+    header
+      .logo
+        img(src='img/uttnlogl.png', alt='Encabezado')
+    h1 Registro
+    if error
+      #alerta(style='display: block; color: red; text-align: center;')
+        p= error
+      script.
+        setTimeout(function() {
+          document.getElementById('alerta').style.display = 'none';
+        }, 3000); // 3000 milisegundos = 3 segundos
+    else
+      #alerta(style='display: none;')
+        p Credenciales incorrectas. Por favor, inténtalo de nuevo.
+    form(action='/register', method='post')
+      label(for='newUsername') Usuario:
+      input#newUsername(type='text', name='newUsername', required='')
+      br
+      label(for='nombre') Nombre:
+      input#nombre(type='text', name='nombre', oninput='this.value = this.value.toUpperCase()', required='')
+      br
+      label(for='apellidoPaterno') Apellido Paterno:
+      input#apellidoPaterno(type='text', oninput='this.value = this.value.toUpperCase()', name='apellidoPaterno', required='')
+      br
+      label(for='apellidoMaterno') Apellido Materno:
+      input#apellidoMaterno(type='text', oninput='this.value = this.value.toUpperCase()', name='apellidoMaterno', required='')
+      br
+      label(for='nombre') Correo:
+      input#correo(type='email', name='correo', required='')
+      br
+      label(for='password') Contrase&ntilde;a:
+      div(style='display: flex; align-items: center;')
+        input#password(type='password', name='password', required)
+        span(style='cursor: pointer; padding: 4px;', onclick='togglePasswordVisibility()') x
+      button(type='submit') Registrarse
+    p
+      | &iquest;Ya tienes una cuenta? 
+      a(href='/') Inicia sesi&oacute;n aqu&iacute;
+    footer &copy; Universidad Tecnol&oacute;gica de Tamaulipas Norte - 2023
+    script.
+      function togglePasswordVisibility() {
+        var passwordField = document.getElementById('password');
+        
+        if (passwordField.type === 'password') {
+          passwordField.type = 'text';
+        } else {
+          passwordField.type = 'password';
+        }
+      }
