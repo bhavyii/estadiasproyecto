@@ -133,6 +133,10 @@ app.get("/forms", (req, res) => {
     res.render("forms");
 });
 
+app.get("/usuarios", (req, res) => {
+    res.render("usuarios");
+});
+
 app.post("/index", async (req, res) => {
     const { username, password } = req.body;
 
