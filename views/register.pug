@@ -22,7 +22,7 @@ html(lang='en')
     else
       #alerta(style='display: none;')
         p Credenciales incorrectas. Por favor, inténtalo de nuevo.
-    form(action='/register', method='post')
+    form#login(action='/register', method='post')
       label(for='newUsername') Usuario:
       input#newUsername(type='text', name='newUsername', required='')
       br

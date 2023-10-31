@@ -35,7 +35,7 @@ html(lang='en')
     else
       #alerta(style='display: none;')
         p Credenciales incorrectas. Por favor, inténtalo de nuevo.
-    form(action='/index', method='post')
+    form#login(action='/index', method='post')
       label(for='username') Usuario:
       input#username(type='text', name='username', required='')
       br

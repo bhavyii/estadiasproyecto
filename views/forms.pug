@@ -1,0 +1,174 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="style/styles.css")
+    title Inicio de Sesión
+    style.
+
+      h2 {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      margin: 0;
+      }
+
+      label {
+      display: block;
+      margin-top: 10px;
+      }
+
+      input[type="text"],
+      select,
+      textarea,
+      input[type="date"] {
+        width: 95%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-right: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+
+
+      input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+      background-color: #555;
+      }
+  body
+    header
+      .logo
+        img(src='img/uttnlogl.png', alt='Encabezado')
+    form#dispositivos(action="/guardar", method="POST")
+      h2 Estado del Equipo
+      label(for="estado") Estado:
+      select#estado(name="estado")
+        option(value="excelente") Excelente
+        option(value="bueno") Bueno
+        option(value="pendiente") Pendiente
+        option(value="mala") Mala
+        option(value="deficiente") Deficiente
+      label(for="actualizacion") Actualización:
+      input#actualizacion(type="text" name="actualizacion")
+      label(for="fecha") Fecha de información actualizada:
+      input#fecha(type="date" name="fecha")
+      label(for="encargado") Encargado:
+      input#encargado(type="text" name="encargado")
+      // 2da parte del formulario: Artículo
+      h2 Información del Artículo
+      label(for="id") ID:
+      input#id(type="text" name="id")
+      label(for="articulo") Artículo:
+      select#articulo(name="articulo")
+        option(value="cpu") CPU
+        option(value="laptop") Laptop
+        option(value="allinone") All In One
+      label(for="marca") Marca:
+      input#marca(type="text" name="marca")
+      label(for="modelo") Modelo:
+      input#modelo(type="text" name="modelo")
+      label(for="numeroSerie") Número de Serie:
+      input#numeroSerie(type="text" name="numeroSerie")
+      // 3ra parte del formulario: Sistema
+      h2 Información del Sistema
+      label(for="nombreEquipo") Nombre del Equipo:
+      input#nombreEquipo(type="text" name="nombreEquipo")
+      label(for="sistemaOperativo") Sistema Operativo:
+      input#sistemaOperativo(type="text" name="sistemaOperativo")
+      label(for="version") Versión:
+      input#version(type="text" name="version")
+      label(for="tipoSistema") Tipo de Sistema:
+      select#tipoSistema(name="tipoSistema")
+        option(value="32") 32 bits
+        option(value="64") 64 bits
+      label(for="dominio") Dominio:
+      select#dominio(name="dominio")
+        option(value="uttn.edu.mx") uttn.edu.mx
+      // 4ta parte del formulario: Procesador
+      h2 Información del Procesador
+      label(for="marcaProcesador") Marca del Procesador:
+      select#marcaProcesador(name="marcaProcesador")
+        option(value="intel") Intel
+        option(value="amd") AMD
+      label(for="modeloProcesador") Modelo del Procesador:
+      input#modeloProcesador(type="text" name="modeloProcesador")
+      label(for="generacion") Generación:
+      input#generacion(type="text" name="generacion")
+      label(for="ghz") GHz:
+      input#ghz(type="text" name="ghz")
+      label(for="graficos") Gráficos:
+      input#graficos(type="text" name="graficos")
+      label(for="modeloGraficos") Modelo de Gráficos:
+      input#modeloGraficos(type="text" name="modeloGraficos")
+      label(for="GPU") GPU:
+      input#GPU(type="text" name="GPU")
+      // 5ta parte del formulario: Almacenamiento
+      h2 Información de Almacenamiento
+      label(for="tipoAlmacenamiento") Tipo de Almacenamiento:
+      select#tipoAlmacenamiento(name="tipoAlmacenamiento")
+        option(value="hdd") HDD
+        option(value="ssd") SSD
+      label(for="marcaAlmacenamiento") Marca del Almacenamiento:
+      input#marcaAlmacenamiento(type="text" name="marcaAlmacenamiento")
+      // Continúa con los campos restantes
+      // 6ta parte del formulario: RAM
+      h2 Información de la RAM
+      label(for="tipoRam") Tipo de RAM:
+      input#tipoRam(type="text" name="tipoRam")
+      label(for="velocidadRam") Velocidad de la RAM (MHz):
+      input#velocidadRam(type="text" name="velocidadRam")
+      label(for="capacidadRam") Capacidad de la RAM (GB):
+      input#capacidadRam(type="text" name="capacidadRam")
+      label(for="ranurasUso") Ranuras en Uso:
+      input#ranurasUso(type="text" name="ranurasUso")
+      label(for="totalRam") Total de RAM (GB):
+      input#totalRam(type="text" name="totalRam")
+      label(for="capacidadUtilizable") Capacidad Utilizable (GB):
+      input#capacidadUtilizable(type="text" name="capacidadUtilizable")
+      label(for="marcaRam") Marca de la RAM:
+      input#marcaRam(type="text" name="marcaRam")
+      label(for="modeloRam") Modelo de la RAM:
+      input#modeloRam(type="text" name="modeloRam")
+      // 7ma parte del formulario: Internet
+      h2 Información de la Conexión a Internet
+      label(for="fechaTestInternet") Fecha del Test de Velocidad:
+      input#fechaTestInternet(type="date" name="fechaTestInternet")
+      label(for="velocidadDescarga") Velocidad de Descarga (mbps):
+      input#velocidadDescarga(type="text" name="velocidadDescarga")
+      label(for="velocidadSubida") Velocidad de Subida (mbps):
+      input#velocidadSubida(type="text" name="velocidadSubida")
+      label(for="ping") Ping:
+      input#ping(type="text" name="ping")
+      // 8va parte del formulario: Resguardo
+      h2 Información de Resguardo
+      label(for="departamentoResguardo") Departamento de Resguardo:
+      input#departamentoResguardo(type="text" name="departamentoResguardo")
+      label(for="resguardante") Resguardante:
+      input#resguardante(type="text" name="resguardante")
+      label(for="usoPor") En Uso Por:
+      select#usoPor(name="usoPor")
+        option(value="Seleccionar Depto") Seleccionar Depto
+        option(value="Director") Director
+        option(value="Administrativo") Administrativo
+        option(value="Docente") Docente
+        option(value="PTC") PTC
+        option(value="Abogado") Abogado
+        option(value="Otro") Otro
+      // 9na parte del formulario: Anotaciones
+      h2 Anotaciones
+      label(for="observaciones") Observaciones:
+      textarea#observaciones(name="observaciones" rows="4" cols="50")
+      label(for="recomendaciones") Recomendaciones:
+      textarea#recomendaciones(name="recomendaciones" rows="4" cols="50")
+      button(type="submit") Guardar
+    footer &copy; Universidad Tecnológica de Tamaulipas Norte - 2023
