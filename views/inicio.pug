@@ -6,12 +6,12 @@ html
     base(href='/inicio')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='style/styles.css')
-    title Registro
-    title Dispositivos
+    title Seguimiento de dispositivos
   body
     header
       .logo
         img(src='img/uttnlogl.png', alt='Encabezado')
+      button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
     table.gris
       caption
         | Dispositivos registrados

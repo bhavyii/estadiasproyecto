@@ -6,12 +6,13 @@ head
     meta(http-equiv='X-UA-Compatible', content='IE-edge')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='../style/styles.css')
-    title Usuarios
+    title Seguimiento de dispositivos
 
 body
     header
         .logo
             img(src='../img/uttnlogl.png', alt='Encabezado')
+        button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
 
     table.gris
         caption
@@ -27,28 +28,20 @@ body
                 th
                 th
                 th
-            tr
-                td JohnDoe
-                td John
-                td Doe
-                td
-                td john@example.com
-                td
-                    button.btn.verde Ver
-                td
-                    button.btn.azul Editar
-                td
-                    button.btn.rojo Borrar
-            tr
-                td JaneSmith
-                td Jane
-                td Smith
-                td
-                td jane@example.com
-                td
-                    button.btn.verde Ver
-                td
-                    button.btn.azul Editar
-                td
-                    button.btn.rojo Borrar
+
+            //- Aquí comienza el foreach para mostrar los usuarios
+            each user in usuarios
+                tr
+                    td= user.username
+                    td= user.nombre
+                    td= user.apellidoPaterno
+                    td= user.apellidoMaterno
+                    td= user.correo
+                    td
+                        button.btn.verde Ver
+                    td
+                        button.btn.azul Editar
+                    td
+                        button.btn.rojo Borrar
+
     footer &copy; Universidad Tecnológica de Tamaulipas Norte - 2023

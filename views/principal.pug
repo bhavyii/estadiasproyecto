@@ -6,17 +6,19 @@ html(lang='en')
     base(href='/principal')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='style/styles.css')
-    title Tutorias
+    title Seguimiento de dispositivos
   body
     header
       .logo
         img(src='img/uttnlogl.png', alt='Encabezado')
+      button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
 
     main
       .card-container
         .card
-          img(src='img/dispositivos.png', alt='Imagen 1')
-          p Seguimiento de dispositivos
+          a(href='/inicio')
+            img(src='img/dispositivos.png', alt='Imagen 1')
+            p Seguimiento de dispositivos
         .card
           a(href='/forms')
             img(src='img/ingresar.png', alt='Imagen 2')

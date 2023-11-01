@@ -108,6 +108,25 @@ const dispositivosSchema = new mongoose.Schema({
 const Dispositivos = mongoose.model("Dispositivos", dispositivosSchema);
 const Usuarios = mongoose.model("Usuarios", usuariosSchema);
 
+app.use((req, res, next) => {
+    res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.header('Pragma', 'no-cache');
+    res.header('Expires', '0');
+    next();
+});
+
+function requireLogin(req, res, next) {
+    if (req.session && req.session.usuario) {
+        // Si la sesión de usuario existe, continúa
+        next();
+    } else {
+        // Si no ha iniciado sesión, redirige a la página de inicio de sesión o muestra un mensaje de error
+        const error = "El usuario ya existe.";
+        res.redirect('/index'); // Cambia la ruta según tu configuración
+    }
+}
+
+
 app.get("/", (req, res) => {
     res.render("index");
 });
@@ -121,21 +140,39 @@ app.get("/register", (req, res) => {
     res.render("register");
 });
 
-app.get("/inicio", (req, res) => {
-    res.render("inicio");
+app.get('/principal', requireLogin, (req, res) => {
+    res.render('principal');
 });
 
-app.get("/principal", (req, res) => {
-    res.render("principal");
+app.get('/inicio', requireLogin, (req, res) => {
+    res.render('inicio');
 });
 
-app.get("/forms", (req, res) => {
-    res.render("forms");
+app.get('/forms', requireLogin, (req, res) => {
+    res.render('forms');
 });
 
-app.get("/usuarios", (req, res) => {
-    res.render("usuarios");
+app.get('/usuarios', requireLogin, async (req, res) => {
+    try {
+        // Consulta la base de datos para obtener la lista de usuarios
+        const usuarios = await Usuarios.find();
+        res.render('usuarios', { usuarios });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al obtener la lista de usuarios');
+    }
 });
+
+app.get('/cerrar-sesion', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error(err);
+        } else {
+            res.redirect('/'); // Redirige a la página de inicio de sesión o a donde desees
+        }
+    });
+});
+
 
 app.post("/index", async (req, res) => {
     const { username, password } = req.body;
@@ -202,6 +239,7 @@ app.post("/register", async (req, res) => {
         res.status(500).send("Error en el servidor");
     }
 });
+
 
 app.post('/guardar', async (req, res) => {
     const { estado, actualizacion, fecha, encargado, id, articulo, marca, modelo, numeroSerie, nombreEquipo, sistemaOperativo, version, tipoSistema, dominio, marcaProcesador, modeloProcesador, generacion, ghz, graficos, modeloGraficos, GPU, tipoAlmacenamiento, marcaAlmacenamiento, tipoRam, velocidadRam, capacidadRam, ranurasUso, totalRam, capacidadUtilizable, marcaRam, modeloRam, velocidadDescarga, velocidadSubida, ping, departamentoResguardo, resguardante, usoPor, observaciones, recomendaciones } = req.body;

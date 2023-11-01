@@ -5,7 +5,7 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet" href="style/styles.css")
-    title Inicio de Sesión
+    title Seguimiento de dispositivos
     style.
 
       h2 {
@@ -49,6 +49,7 @@ html(lang="en")
     header
       .logo
         img(src='img/uttnlogl.png', alt='Encabezado')
+      button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
     form#dispositivos(action="/guardar", method="POST")
       h2 Estado del Equipo
       label(for="estado") Estado:

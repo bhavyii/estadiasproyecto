@@ -238,3 +238,17 @@ caption {
   background-color: #3498db; /* Cambia el color al pasar el mouse a un tono azul */
 }
 
+.btn-cerrar-sesion {
+  background-color: red;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  float: right; /* Alinea el botón a la derecha */
+}
+
+.btn-cerrar-sesion:hover {
+  background-color: darkred;
+}
