@@ -144,10 +144,6 @@ app.get('/principal', requireLogin, (req, res) => {
     res.render('principal');
 });
 
-app.get('/inicio', requireLogin, (req, res) => {
-    res.render('inicio');
-});
-
 app.get('/forms', requireLogin, (req, res) => {
     res.render('forms');
 });
@@ -160,6 +156,17 @@ app.get('/usuarios', requireLogin, async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al obtener la lista de usuarios');
+    }
+});
+
+app.get('/inicio', requireLogin, async (req, res) => {
+    try {
+        // Consulta la base de datos para obtener la lista de dispositivos
+        const dispositivos = await Dispositivos.find();
+        res.render('inicio', { dispositivos });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al obtener la lista de dispositivos');
     }
 });
 
