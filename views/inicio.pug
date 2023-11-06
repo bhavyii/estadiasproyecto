@@ -9,34 +9,58 @@ html
     title Seguimiento de dispositivos
   body
     header
+      button#back.btn-back(type='button', onclick='location.href="/principal"')
+          img(src='img/back.png', alt='back')
       .logo
         img(src='img/uttnlogl.png', alt='Encabezado')
       button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
     table.gris
       caption
-        | Dispositivos registrados
+          | Dispositivos registrados
       tbody
-            tr
-                th ID
-                th Articulo
-                th Marca
-                th Modelo
-                th Resguardante
-                th
-                th
-
-            //- Aquí comienza el foreach para mostrar los usuarios
-            each dispositivo in dispositivos
-                tr
-                    td= dispositivo.informacionArticulo.id
-                    td= dispositivo.informacionArticulo.articulo
-                    td= dispositivo.informacionArticulo.marca
-                    td= dispositivo.informacionArticulo.modelo
-                    td= dispositivo.informacionResguardo.resguardante
-                    td
-                        button.btn.verde Ver
-                    td
-                        button.btn.azul Editar
-                    td
-                        button.btn.rojo Borrar
+          tr
+              th ID
+              th Articulo
+              th Marca
+              th Modelo
+              th Resguardante
+              th
+              th
+              th
+              
+          each dispositivo in dispositivos
+              tr
+                  td= dispositivo.informacionArticulo.id
+                  td= dispositivo.informacionArticulo.articulo
+                  td= dispositivo.informacionArticulo.marca
+                  td= dispositivo.informacionArticulo.modelo
+                  td= dispositivo.informacionResguardo.resguardante
+                  td
+                      button.btn.verde Ver
+                  td
+                      button.btn.azul Editar
+                  td
+                      button.btn.rojo(onclick='borrarDispositivo("' + dispositivo._id + '")') Borrar
     footer &copy; Universidad Tecnol&oacute;gica de Tamaulipas Norte - 2023
+
+script.
+    function borrarDispositivo(dispositivoId) {
+        if (confirm("¿Seguro que desea borrar este dispositivo?")) {
+            // Realiza una solicitud al servidor para borrar el dispositivo por su ID
+            fetch(`/borrar-dispositivo/${dispositivoId}`, { method: 'DELETE' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Actualiza la página o realiza otras acciones necesarias
+                        alert("Dispositivo borrado con éxito");
+                        location.reload(); // Recarga la página
+                    } else {
+                        alert("Error al borrar el dispositivo");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error al borrar el dispositivo:", error);
+                    alert("Error al borrar el dispositivo");
+                });
+        }
+    }

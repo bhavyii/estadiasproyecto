@@ -10,6 +10,8 @@ head
 
 body
     header
+        button#back.btn-back(type='button', onclick='location.href="/principal"')
+            img(src='img/back.png', alt='back')
         .logo
             img(src='../img/uttnlogl.png', alt='Encabezado')
         button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
@@ -27,7 +29,6 @@ body
                 th
                 th
                 th
-                th
 
             //- Aquí comienza el foreach para mostrar los usuarios
             each user in usuarios
@@ -42,6 +43,28 @@ body
                     td
                         button.btn.azul Editar
                     td
-                        button.btn.rojo Borrar
+                        button.btn.rojo(onclick='borrarUsuario("' + user._id + '")') Borrar
 
-    footer &copy; Universidad Tecnológica de Tamaulipas Norte - 2023
+footer &copy; Universidad Tecnológica de Tamaulipas Norte - 2023
+
+script.
+    function borrarUsuario(userId) {
+        if (confirm("¿Seguro que desea borrar este usuario?")) {
+            // Realiza una solicitud al servidor para borrar el usuario por su ID
+            fetch(`/borrar-usuario/${userId}`, { method: 'DELETE' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Actualiza la página o realiza otras acciones necesarias
+                        alert("Usuario borrado con éxito");
+                        location.reload(); // Recarga la página
+                    } else {
+                        alert("Error al borrar el usuario");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error al borrar el usuario:", error);
+                    alert("Error al borrar el usuario");
+                });
+        }
+    }

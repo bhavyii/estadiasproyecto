@@ -57,6 +57,7 @@ const dispositivosSchema = new mongoose.Schema({
         marca: { type: String, default: "" },
         modelo: { type: String, default: "" },
         numeroSerie: { type: String, default: "" },
+        tiempoVida: { type: String, default: "3 años" },
     },
     informacionSistema: {
         nombreEquipo: { type: String, default: "" },
@@ -75,6 +76,7 @@ const dispositivosSchema = new mongoose.Schema({
         GPU: { type: String, default: "" },
     },
     informacionAlmacenamiento: {
+        almacenamientoGB: { type: String, default: "" },
         tipoAlmacenamiento: { type: String, default: "" },
         marcaAlmacenamiento: { type: String, default: "" },
     },
@@ -247,9 +249,44 @@ app.post("/register", async (req, res) => {
     }
 });
 
+app.delete('/borrar-usuario/:userId', async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        // Realiza una consulta para encontrar y eliminar al usuario por su ID
+        const result = await Usuarios.findByIdAndDelete(userId);
+        if (result) {
+            res.json({ success: true });
+        } else {
+            res.json({ success: false, error: 'El usuario no fue encontrado' });
+        }
+    } catch (error) {
+        console.error("Error al borrar el usuario:", error);
+        res.json({ success: false, error: 'Error al borrar el usuario' });
+    }
+});
+
+app.delete('/borrar-dispositivo/:dispositivoId', async (req, res) => {
+    const dispositivoId = req.params.dispositivoId;
+
+    try {
+        // Realiza una consulta para encontrar y eliminar el dispositivo por su ID
+        const result = await Dispositivos.findByIdAndDelete(dispositivoId);
+        if (result) {
+            res.json({ success: true });
+        } else {
+            res.json({ success: false, error: 'El dispositivo no fue encontrado' });
+        }
+    } catch (error) {
+        console.error("Error al borrar el dispositivo:", error);
+        res.json({ success: false, error: 'Error al borrar el dispositivo' });
+    }
+});
+
+
 
 app.post('/guardar', async (req, res) => {
-    const { estado, actualizacion, fecha, encargado, id, articulo, marca, modelo, numeroSerie, nombreEquipo, sistemaOperativo, version, tipoSistema, dominio, marcaProcesador, modeloProcesador, generacion, ghz, graficos, modeloGraficos, GPU, tipoAlmacenamiento, marcaAlmacenamiento, tipoRam, velocidadRam, capacidadRam, ranurasUso, totalRam, capacidadUtilizable, marcaRam, modeloRam, velocidadDescarga, velocidadSubida, ping, departamentoResguardo, resguardante, usoPor, observaciones, recomendaciones } = req.body;
+    const { estado, actualizacion, fecha, encargado, id, articulo, marca, modelo, numeroSerie, nombreEquipo, sistemaOperativo, version, tipoSistema, dominio, marcaProcesador, modeloProcesador, generacion, ghz, graficos, modeloGraficos, GPU, almacenamientoGB, tipoAlmacenamiento, marcaAlmacenamiento, tipoRam, velocidadRam, capacidadRam, ranurasUso, totalRam, capacidadUtilizable, marcaRam, modeloRam, velocidadDescarga, velocidadSubida, ping, departamentoResguardo, resguardante, usoPor, observaciones, recomendaciones } = req.body;
 
     const dispositivo = new Dispositivos({
         estadoEquipo: {
@@ -282,6 +319,7 @@ app.post('/guardar', async (req, res) => {
             GPU,
         },
         informacionAlmacenamiento: {
+            almacenamientoGB,
             tipoAlmacenamiento,
             marcaAlmacenamiento,
         },

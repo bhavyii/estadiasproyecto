@@ -245,10 +245,26 @@ caption {
   padding: 5px 10px;
   color: white;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 50px;
   float: right; /* Alinea el botón a la derecha */
 }
 
 .btn-cerrar-sesion:hover {
   background-color: darkred;
+}
+
+.btn-back {
+  background-color: white;
+  border-radius: 50%;
+  margin-right: 50px;
+  padding: 10px; /* Ajusta este valor según tus necesidades */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-back img {
+  max-width: 100%; /* Asegura que la imagen no se desborde del botón */
+  width: 25px; /* Establece el ancho deseado */
+  height: 25px; /* Establece el alto deseado */
 }

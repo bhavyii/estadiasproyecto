@@ -47,6 +47,8 @@ html(lang="en")
       }
   body
     header
+      button#back.btn-back(type='button', onclick='location.href="/principal"')
+        img(src='img/back.png', alt='back')
       .logo
         img(src='img/uttnlogl.png', alt='Encabezado')
       button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
@@ -54,13 +56,19 @@ html(lang="en")
       h2 Estado del Equipo
       label(for="estado") Estado:
       select#estado(name="estado")
+        option(value="seleccionarestado") Selecionar Estado del Articulo
         option(value="excelente") Excelente
         option(value="bueno") Bueno
         option(value="pendiente") Pendiente
         option(value="mala") Mala
         option(value="deficiente") Deficiente
       label(for="actualizacion") Actualización:
-      input#actualizacion(type="text" name="actualizacion")
+      select(name="actualizacion")
+          option(value="SI") SI
+          option(value="NO") NO
+          option(value="Pendiente") Pendiente
+          option(value="Sin Datos") Sin Datos
+  
       label(for="fecha") Fecha de información actualizada:
       input#fecha(type="date" name="fecha")
       label(for="encargado") Encargado:
@@ -71,6 +79,7 @@ html(lang="en")
       input#id(type="text" name="id")
       label(for="articulo") Artículo:
       select#articulo(name="articulo")
+        option(value="selecionararticulo") Seleccionar Articulo
         option(value="cpu") CPU
         option(value="laptop") Laptop
         option(value="allinone") All In One
@@ -96,6 +105,7 @@ html(lang="en")
       input#version(type="text" name="version")
       label(for="tipoSistema") Tipo de Sistema:
       select#tipoSistema(name="tipoSistema")
+        option(value="seleccionartsistema") Seleccionar Tipo De Sistema
         option(value="32") 32 bits
         option(value="64") 64 bits
       label(for="dominio") Dominio:
@@ -105,6 +115,7 @@ html(lang="en")
       h2 Información del Procesador
       label(for="marcaProcesador") Marca del Procesador:
       select#marcaProcesador(name="marcaProcesador")
+        option(value="seleccionarmprocesador") Seleccionar Procesador
         option(value="intel") Intel
         option(value="amd") AMD
       label(for="modeloProcesador") Modelo del Procesador:
@@ -119,10 +130,13 @@ html(lang="en")
       input#modeloGraficos(type="text" name="modeloGraficos")
       label(for="GPU") GPU:
       input#GPU(type="text" name="GPU")
-      // 5ta parte del formulario: Almacenamiento
+      // 5ta parte del formulario: Almacenamiento 
       h2 Información de Almacenamiento
+      label(for="almacenamientoGB") Espacio de almacenamiento:
+      input#almacenamientoGB(type="text" name="almacenamientoGB")
       label(for="tipoAlmacenamiento") Tipo de Almacenamiento:
       select#tipoAlmacenamiento(name="tipoAlmacenamiento")
+        option(value="seleccionartalmacenamiento") Seleccionar Tipo De Almacenamiento
         option(value="hdd") HDD
         option(value="ssd") SSD
       label(for="marcaAlmacenamiento") Marca del Almacenamiento:
@@ -159,12 +173,26 @@ html(lang="en")
       // 8va parte del formulario: Resguardo
       h2 Información de Resguardo
       label(for="departamentoResguardo") Departamento de Resguardo:
-      input#departamentoResguardo(type="text" name="departamentoResguardo")
+        select#departamentoResguardo(name="departamentoResguardo")
+          option(value="Seleccionar Departamento") Seleccionar Departamento
+          option(value="Administracion") Administración
+          option(value="Mantenimiento Industrial") Mantenimiento Industrial
+          option(value="Mecatronica") Mecatrónica
+          option(value="Energias Renovables") Energías Renovables
+          option(value="Tecnologias De la Informacion") Tecnologías De la Información
+          option(value="Procesos y Operaciones Industriales") Procesos y Operaciones Industriales
+          option(value="Logistica") Logística
+          option(value="Becas") Becas
+          option(value="Vinculacion") Vinculación
+          option(value="Biblioteca") Biblioteca
+          option(value="CATI") CATI
+          option(value="Servicios Escolares") Servicios Escolares
+          option(value="Otro") Otro
       label(for="resguardante") Resguardante:
       input#resguardante(type="text" name="resguardante")
       label(for="usoPor") En Uso Por:
       select#usoPor(name="usoPor")
-        option(value="Seleccionar Depto") Seleccionar Depto
+        option(value="Seleccionar Depto") Seleccionar Tipo De Resguardante
         option(value="Director") Director
         option(value="Administrativo") Administrativo
         option(value="Docente") Docente
