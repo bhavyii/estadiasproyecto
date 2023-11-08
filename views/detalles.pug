@@ -9,20 +9,20 @@ head
     border: 2px solid #3498db;
     border-radius: 10px;
     overflow: hidden;
-    width: 300px;
+    width: 800px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     margin: 0 auto;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     }
     th#tituloTabla {
-    background-color: #3498db;
+    background-color: #1ab192;
     color: white;
     text-align: center;
     }
     th, td {
-    border: 1px solid #3498db;
+    border: 1px solid #1ab192;
     padding: 10px 20px;
-    text-align: center;
+    text-align: justify;
     }
     tr:nth-child(even) {
     background-color: #f2f2f2;
@@ -37,14 +37,133 @@ head
       button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
     table#miTabla
       tr
-        th#tituloTabla(colspan='2') T&iacute;tulo Centralizado
-      tr
-        td ID
-        td= dispositivo.informacionArticulo.id
+        th#tituloTabla(colspan='2') Estado del equipo
       tr
         td Estado
         td= dispositivo.estadoEquipo.estado
       tr
         td Actualización
         td= dispositivo.estadoEquipo.actualizacion
+      tr
+        td Fecha de actualización
+        td= dispositivo.estadoEquipo.fechaActualizacion
+      tr
+        td Encargado
+        td= dispositivo.estadoEquipo.encargado
+      tr
+        th#tituloTabla(colspan='2') Informacion del articulo
+      tr
+        td ID
+        td= dispositivo.informacionArticulo.id
+      tr
+        td Articulo
+        td= dispositivo.informacionArticulo.articulo
+      tr
+        td Marca
+        td= dispositivo.informacionArticulo.marca
+      tr
+        td Modelo
+        td= dispositivo.informacionArticulo.modelo  
+      tr
+        td Numero de serie
+        td= dispositivo.informacionArticulo.numeroSerie  
+      tr
+        td Tiempo de vida
+        td= dispositivo.informacionArticulo.tiempoVida
+      tr
+        th#tituloTabla(colspan='2') Informacion de sistema 
+      tr
+        td Nombre del equipo
+        td= dispositivo.informacionSistema.nombreEquipo
+      tr
+        td Sistema operativo
+        td= dispositivo.informacionSistema.sistemaOperativo
+      tr
+        td Version
+        td= dispositivo.informacionSistema.version
+      tr
+        td Tipo de sistema
+        td= dispositivo.informacionSistema.tipoSistema
+      tr
+        td Dominio
+        td= dispositivo.informacionSistema.dominio
+      tr
+        th#tituloTabla(colspan='2') Informacion del procesador    
+      tr
+        td Marca del procesador
+        td= dispositivo.informacionProcesador.marcaProcesador
+      tr
+        td Modelo del procesador
+        td= dispositivo.informacionProcesador.modeloProcesador
+      tr
+        td Generacion
+        td= dispositivo.informacionProcesador.generacion
+      tr
+        td Ghz
+        td= dispositivo.informacionProcesador.ghz
+      tr
+        td Graficos
+        td= dispositivo.informacionProcesador.graficos
+      tr
+        td Modelo de graficos
+        td= dispositivo.informacionProcesador.modeloGraficos
+      tr
+        td GPU
+        td= dispositivo.informacionProcesador.GPU
+      tr
+        th#tituloTabla(colspan='2') Informacion del almacenamiento
+      tr
+        td Cantidad de almacenamiento
+        td= dispositivo.informacionAlmacenamiento.almacenamientoGB
+      tr
+        td Tipo de almacenamiento
+        td= dispositivo.informacionAlmacenamiento.marcaAlmacenamiento
+      tr
+        td Marca del almacenamiento
+        td= dispositivo.informacionAlmacenamiento.almacenamientoGB   
+      tr
+        th#tituloTabla(colspan='2') Informacion de la RAM
+      tr
+        td Tipo de RAM
+        td= dispositivo.informacionRam.tipoRam
+      tr
+        td Velocidad de RAM
+        td= dispositivo.informacionRam.velocidadRam
+      tr
+        td Capacidad de RAM 
+        td= dispositivo.informacionRam.capacidadRam
+      tr
+        td Ranuras en uso
+        td= dispositivo.informacionRam.ranurasUso    
+      tr
+        td Total de memoria RAM
+        td= dispositivo.informacionRam.totalRam
+      tr
+        td Capacidad utilizable 
+        td= dispositivo.informacionRam.capacidadUtilizable
+      tr
+        td Marca de la RAM
+        td= dispositivo.informacionRam.marcaRam
+      tr
+        td Modelo de la RAM
+        td= dispositivo.informacionRam.modeloRam 
+      tr
+        th#tituloTabla(colspan='2') Informacion de resguardo
+      tr
+        td Departamento de resguardo
+        td= dispositivo.informacionResguardo.departamentoResguardo
+      tr
+        td Resguardante
+        td= dispositivo.informacionResguardo.resguardante
+      tr
+        td En uso por
+        td= dispositivo.informacionResguardo.usoPor
+      tr
+        th#tituloTabla(colspan='2') Anotaciones
+      tr
+        td Observaciones
+        td= dispositivo.anotaciones.observaciones
+      tr
+        td Recomendaciones
+        td= dispositivo.anotaciones.recomendaciones              
     footer &copy; Universidad Tecnol&oacute;gica de Tamaulipas Norte - 2023
