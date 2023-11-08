@@ -36,7 +36,8 @@ html
                   td= dispositivo.informacionArticulo.modelo
                   td= dispositivo.informacionResguardo.resguardante
                   td
-                      button.btn.verde Ver
+                      a(href=`/detalles/${dispositivo._id}`)
+                        button.btn.verde Ver
                   td
                       button.btn.azul Editar
                   td

@@ -172,6 +172,10 @@ app.get('/inicio', requireLogin, async (req, res) => {
     }
 });
 
+app.get('/detalles', requireLogin, (req, res) => {
+    res.render('detalles');
+});
+
 app.get('/cerrar-sesion', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -180,6 +184,22 @@ app.get('/cerrar-sesion', (req, res) => {
             res.redirect('/'); // Redirige a la página de inicio de sesión o a donde desees
         }
     });
+});
+
+app.get('/detalles/:dispositivoId', requireLogin, async (req, res) => {
+    try {
+        const dispositivoId = req.params.dispositivoId;
+        // Busca el dispositivo por su ID en la base de datos
+        const dispositivo = await Dispositivos.findById(dispositivoId);
+        if (dispositivo) {
+            res.render('detalles', { dispositivo });
+        } else {
+            res.status(404).send('Dispositivo no encontrado');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al obtener los detalles del dispositivo');
+    }
 });
 
 
@@ -282,8 +302,6 @@ app.delete('/borrar-dispositivo/:dispositivoId', async (req, res) => {
         res.json({ success: false, error: 'Error al borrar el dispositivo' });
     }
 });
-
-
 
 app.post('/guardar', async (req, res) => {
     const { estado, actualizacion, fecha, encargado, id, articulo, marca, modelo, numeroSerie, nombreEquipo, sistemaOperativo, version, tipoSistema, dominio, marcaProcesador, modeloProcesador, generacion, ghz, graficos, modeloGraficos, GPU, almacenamientoGB, tipoAlmacenamiento, marcaAlmacenamiento, tipoRam, velocidadRam, capacidadRam, ranurasUso, totalRam, capacidadUtilizable, marcaRam, modeloRam, velocidadDescarga, velocidadSubida, ping, departamentoResguardo, resguardante, usoPor, observaciones, recomendaciones } = req.body;

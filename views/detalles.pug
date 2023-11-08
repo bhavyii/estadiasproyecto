@@ -1,0 +1,50 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  link(rel='stylesheet', href='/style/styles.css')
+  style.
+
+    table#miTabla {
+    border-collapse: collapse;
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 300px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
+    margin-bottom: 10px;
+    }
+    th#tituloTabla {
+    background-color: #3498db;
+    color: white;
+    text-align: center;
+    }
+    th, td {
+    border: 1px solid #3498db;
+    padding: 10px 20px;
+    text-align: center;
+    }
+    tr:nth-child(even) {
+    background-color: #f2f2f2;
+    }
+  title Seguimiento de dispositivos
+  body
+    header
+      button#back.btn-back(type='button', onclick='location.href="/inicio"')
+          img(src='/img/back.png', alt='back')
+      .logo
+        img(src='/img/uttnlogl.png', alt='Encabezado')
+      button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
+    table#miTabla
+      tr
+        th#tituloTabla(colspan='2') T&iacute;tulo Centralizado
+      tr
+        td ID
+        td= dispositivo.informacionArticulo.id
+      tr
+        td Estado
+        td= dispositivo.estadoEquipo.estado
+      tr
+        td Actualización
+        td= dispositivo.estadoEquipo.actualizacion
+    footer &copy; Universidad Tecnol&oacute;gica de Tamaulipas Norte - 2023
