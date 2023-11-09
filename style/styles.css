@@ -8,6 +8,11 @@ body {
   height: 100vh;
 }
 
+.containergen {
+  display: grid;
+  height: 100%;
+}
+
 header {
   background-color: #1ab192;
   height: 100px;
@@ -101,8 +106,9 @@ footer {
   background-color: black;
   color: white;
   text-align: center;
-  padding: 10px;
-  height: 50px;
+  height: 60px;
+  margin-top: auto;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;

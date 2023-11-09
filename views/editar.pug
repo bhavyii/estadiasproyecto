@@ -1,0 +1,251 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="/style/styles.css")
+    title Seguimiento de dispositivos
+    style.
+      footer {
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        bottom: 0;
+        width: 99%;
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+        margin-left: 30px;
+      }
+      input[type="text"],
+      select,
+      textarea,
+      input[type="date"] {
+        width: 85%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-right: 5 px;
+        margin-bottom: 10px;
+        margin-left: 30px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      input[type="submit"] {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background-color: #555;
+      }
+      .tabs {
+        display: flex;
+        border-bottom: 1px solid #ccc;
+      }
+      .tab {
+        flex: 1;
+        text-align: center;
+        padding: 10px;
+        cursor: pointer;
+        background-color: #eee;
+      }
+      .tab.active {
+        background-color: #1ab192;
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      .container {
+        border: 0; /* Sin borde visible */
+        border-radius: 10px; /* Borde redondeado */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Agrega una sombra */
+        margin: 0 auto; /* Centra horizontalmente en la página */
+        padding: 10px;
+        margin-bottom: 30px;
+        max-width: 1700px; /* Establece un ancho máximo si es necesario */
+      }
+
+      button[type="submit"] {
+        margin-left: 1550px; /* Ajusta el margen derecho del botón según sea necesario */
+        margin-top: 25px;
+      }
+  div.containergen
+    body
+      header
+        button#back.btn-back(type='button', onclick='location.href="/principal"')
+          img(src='/img/back.png', alt='back')
+        .logo
+          img(src='/img/uttnlogl.png', alt='Encabezado')
+        button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
+      form(action=`/actualizar/${dispositivo._id}`, method="POST")
+        div.container
+          div.tabs
+            div.tab.active#tab1 Estado del Equipo
+            div.tab#tab2 Información del Artículo
+            div.tab#tab3 Información del Sistema
+            div.tab#tab4 Información del Procesador
+            div.tab#tab5 Información de Almacenamiento
+            div.tab#tab6 Información de la RAM
+            div.tab#tab7 Información de Resguardo
+            div.tab#tab8 Anotaciones
+          div.tab-content.active#content1
+              input(type='hidden', name='dispositivoId', value=dispositivo._id)
+              label(for="estado") Estado:
+              select#estado(type="text" name="estado")
+                option(value="Seleccionar el estado", selected=dispositivo.estadoEquipo.estado === "Seleccionar el estado") Seleccionar Estado del Articulo
+                option(value="Excelente", selected=dispositivo.estadoEquipo.estado === "Excelente") Excelente
+                option(value="Bueno", selected=dispositivo.estadoEquipo.estado === "Bueno") Bueno
+                option(value="Pendiente", selected=dispositivo.estadoEquipo.estado === "Pendiente") Pendiente
+                option(value="Mala", selected=dispositivo.estadoEquipo.estado === "Mala") Mala
+                option(value="Deficiente", selected=dispositivo.estadoEquipo.estado === "Deficiente") Deficiente
+              label(for="actualizacion") Actualización:
+              select(name="actualizacion")
+                  option(value="Si", selected=dispositivo.estadoEquipo.actualizacion === "Si") SI
+                  option(value="No", selected=dispositivo.estadoEquipo.actualizacion === "No") NO
+                  option(value="Pendiente", selected=dispositivo.estadoEquipo.actualizacion === "Pendiente") Pendiente
+                  option(value="Sin Datos", selected=dispositivo.estadoEquipo.actualizacion === "Sin Datos") Sin Datos
+              label(for="fecha") Fecha de información actualizada:
+              input#fecha(type="date" name="fechaActualizacion" value=dispositivo.estadoEquipo.fechaActualizacion.toISOString().split('T')[0])
+              label(for="encargado") Encargado:
+              input#encargado(type="text" name="encargado" value=dispositivo.estadoEquipo.encargado)
+          div.tab-content#content2
+            label(for="id") ID:
+            input#id(type="text" name="id" value=dispositivo.informacionArticulo.id)
+            label(for="articulo") Artículo:
+            select#articulo(name="articulo")
+              option(value="Seleccionar el articulo", selected=dispositivo.estadoEquipo.actualizacion === "Seleccionar el articulo") Seleccionar Articulo
+              option(value="CPU", selected=dispositivo.estadoEquipo.actualizacion === "CPU") CPU
+              option(value="Laptop", selected=dispositivo.estadoEquipo.actualizacion === "Laptop") Laptop
+              option(value="Allinone", selected=dispositivo.estadoEquipo.actualizacion === "Allinone") All In One
+              option(value="Camarasweb", selected=dispositivo.estadoEquipo.actualizacion === "Camarasweb") Cámaras Web
+              option(value="Reguladores", selected=dispositivo.estadoEquipo.actualizacion === "Reguladores") Reguladores
+              option(value="Servidores", selected=dispositivo.estadoEquipo.actualizacion === "Servidores") Servidores
+              option(value="Switch", selected=dispositivo.estadoEquipo.actualizacion === "Switch") Switch
+              option(value="HUB", selected=dispositivo.estadoEquipo.actualizacion === "HUB") HUB
+              option(value="Audifonos", selected=dispositivo.estadoEquipo.actualizacion === "Audifonos") Diadema(Audifonos)
+            label(for="marca") Marca:
+            input#marca(type="text" name="marca" value=dispositivo.informacionArticulo.marca)
+            label(for="modelo") Modelo:
+            input#modelo(type="text" name="modelo" value=dispositivo.informacionArticulo.modelo)
+            label(for="numeroSerie") Número de Serie:
+            input#numeroSerie(type="text" name="numeroSerie" value=dispositivo.informacionArticulo.numeroSerie)
+          div.tab-content#content3
+            label(for="nombreEquipo") Nombre del Equipo:
+            input#nombreEquipo(type="text" name="nombreEquipo" value=dispositivo.informacionSistema.nombreEquipo)
+            label(for="sistemaOperativo") Sistema Operativo:
+            input#sistemaOperativo(type="text" name="sistemaOperativo" value=dispositivo.informacionSistema.sistemaOperativo)
+            label(for="version") Versión:
+            input#version(type="text" name="version" value=dispositivo.informacionSistema.version)
+            label(for="tipoSistema") Tipo de Sistema:
+            select#tipoSistema(name="tipoSistema")
+              option(value="Seleccionar sistema", selected=dispositivo.informacionSistema.tipoSistema === "Seleccionar sistema") Seleccionar Tipo De Sistema
+              option(value="32", selected=dispositivo.informacionSistema.tipoSistema === "32 bits") 32 bits
+              option(value="64", selected=dispositivo.informacionSistema.tipoSistema === "64 bits") 64 bits
+            label(for="dominio") Dominio:
+            select#dominio(name="dominio" value=dispositivo.informacionSistema.dominio)
+              option(value="uttn.edu.mx") uttn.edu.mx
+          div.tab-content#content4
+            label(for="marcaProcesador") Marca del Procesador:
+            select#marcaProcesador(name="marcaProcesador")
+              option(value="Seleccionar procesador", selected=dispositivo.informacionProcesador.marcaProcesador === "Seleccionar procesador") Seleccionar Procesador
+              option(value="Intel", selected=dispositivo.informacionProcesador.marcaProcesador === "Intel") Intel
+              option(value="AMD", selected=dispositivo.informacionProcesador.marcaProcesador === "AMD") AMD
+            label(for="modeloProcesador") Modelo del Procesador:
+            input#modeloProcesador(type="text" name="modeloProcesador" value=dispositivo.informacionProcesador.modeloProcesador)
+            label(for="generacion") Generación:
+            input#generacion(type="text" name="generacion" value=dispositivo.informacionProcesador.generacion)
+            label(for="ghz") GHz:
+            input#ghz(type="text" name="ghz" value=dispositivo.informacionProcesador.ghz)
+            label(for="graficos") Gráficos:
+            input#graficos(type="text" name="graficos" value=dispositivo.informacionProcesador.graficos)
+            label(for="modeloGraficos") Modelo de Gráficos:
+            input#modeloGraficos(type="text" name="modeloGraficos" value=dispositivo.informacionProcesador.modeloGraficos)
+            label(for="GPU") GPU:
+            input#GPU(type="text" name="GPU")
+          div.tab-content#content5
+            label(for="almacenamientoGB") Espacio de almacenamiento:
+            input#almacenamientoGB(type="text" name="almacenamientoGB" value=dispositivo.informacionAlmacenamiento.almacenamientoGB)
+            label(for="tipoAlmacenamiento") Tipo de Almacenamiento:
+            select#tipoAlmacenamiento(name="tipoAlmacenamiento")
+              option(value="Seleccionar tipo de almacenamiento", selected=dispositivo.informacionAlmacenamiento.tipoAlmacenamiento === "Seleccionar tipo de almacenamiento") Seleccionar Tipo De Almacenamiento
+              option(value="HDD", selected=dispositivo.informacionAlmacenamiento.tipoAlmacenamiento === "HDD") HDD
+              option(value="SSD", selected=dispositivo.informacionAlmacenamiento.tipoAlmacenamiento === "SSD") SSD
+            label(for="marcaAlmacenamiento") Marca del Almacenamiento:
+            input#marcaAlmacenamiento(type="text" name="marcaAlmacenamiento" value=dispositivo.informacionAlmacenamiento.marcaAlmacenamiento)
+          div.tab-content#content6
+            label(for="tipoRam") Tipo de RAM:
+            input#tipoRam(type="text" name="tipoRam" value=dispositivo.informacionRam.tipoRam)
+            label(for="velocidadRam") Velocidad de la RAM (MHz):
+            input#velocidadRam(type="text" name="velocidadRam" value=dispositivo.informacionRam.velocidadRam)
+            label(for="capacidadRam") Capacidad de la RAM (GB):
+            input#capacidadRam(type="text" name="capacidadRam" value=dispositivo.informacionRam.capacidadRam)
+            label(for="ranurasUso") Ranuras en Uso:
+            input#ranurasUso(type="text" name="ranurasUso" value=dispositivo.informacionRam.ranurasUso)
+            label(for="totalRam") Total de RAM (GB):
+            input#totalRam(type="text" name="totalRam" value=dispositivo.informacionRam.totalRam)
+            label(for="capacidadUtilizable") Capacidad Utilizable (GB):
+            input#capacidadUtilizable(type="text" name="capacidadUtilizable")
+            label(for="marcaRam") Marca de la RAM:
+            input#marcaRam(type="text" name="marcaRam" value=dispositivo.informacionRam.marcaRam)
+            label(for="modeloRam") Modelo de la RAM:
+            input#modeloRam(type="text" name="modeloRam" value=dispositivo.informacionRam.modeloRam)
+          div.tab-content#content7
+            label(for="departamentoResguardo") Departamento de Resguardo:
+            select#departamentoResguardo(name="departamentoResguardo")
+              option(value="Seleccionar Departamento") Seleccionar Departamento
+              option(value="Administracion") Administración
+              option(value="Mantenimiento Industrial") Mantenimiento Industrial
+              option(value="Mecatronica") Mecatrónica
+              option(value="Energias Renovables") Energías Renovables
+              option(value="Tecnologias De la Informacion") Tecnologías De la Información
+              option(value="Procesos y Operaciones Industriales") Procesos y Operaciones Industriales
+              option(value="Logistica") Logística
+              option(value="Becas") Becas
+              option(value="Vinculacion") Vinculación
+              option(value="Biblioteca") Biblioteca
+              option(value="CATI") CATI
+              option(value="Servicios Escolares") Servicios Escolares
+              option(value="Otro") Otro
+            label(for="resguardante") Resguardante:
+            input#resguardante(type="text" name="resguardante")
+            label(for="usoPor") En Uso Por:
+            select#usoPor(name="usoPor")
+              option(value="Seleccionar Depto") Seleccionar Tipo De Resguardante
+              option(value="Director") Director
+              option(value="Administrativo") Administrativo
+              option(value="Docente") Docente
+              option(value="PTC") PTC
+              option(value="Abogado") Abogado
+              option(value="Otro") Otro
+          div.tab-content#content8
+            label(for="observaciones") Observaciones:
+            textarea#observaciones(name="observaciones" rows="4" cols="50")= dispositivo.anotaciones.observaciones
+            label(for="recomendaciones") Recomendaciones:
+            textarea#recomendaciones(name="recomendaciones" rows="4" cols="50")= dispositivo.anotaciones.recomendaciones
+            button(type="submit") Guardar
+      footer &copy; Universidad Tecnológica de Tamaulipas Norte - 2023
+    
+  script.
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.classList.remove('active'));
+        tabContents.forEach((content) => content.classList.remove('active'));
+        tab.classList.add('active');
+        tabContents[index].classList.add('active');
+      });
+    });

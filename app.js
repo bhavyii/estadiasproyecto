@@ -90,12 +90,6 @@ const dispositivosSchema = new mongoose.Schema({
         marcaRam: { type: String, default: "" },
         modeloRam: { type: String, default: "" },
     },
-    informacionInternet: {
-        fechaTestInternet: { type: Date, default: "" },
-        velocidadDescarga: { type: String, default: "" },
-        velocidadSubida: { type: String, default: "" },
-        ping: { type: String, default: "" },
-    },
     informacionResguardo: {
         departamentoResguardo: { type: String, default: "" },
         resguardante: { type: String, default: "" },
@@ -193,6 +187,22 @@ app.get('/detalles/:dispositivoId', requireLogin, async (req, res) => {
         const dispositivo = await Dispositivos.findById(dispositivoId);
         if (dispositivo) {
             res.render('detalles', { dispositivo });
+        } else {
+            res.status(404).send('Dispositivo no encontrado');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al obtener los detalles del dispositivo');
+    }
+});
+
+app.get('/editar/:dispositivoId', requireLogin, async (req, res) => {
+    try {
+        const dispositivoId = req.params.dispositivoId;
+        // Busca el dispositivo por su ID en la base de datos
+        const dispositivo = await Dispositivos.findById(dispositivoId);
+        if (dispositivo) {
+            res.render('editar', { dispositivo });
         } else {
             res.status(404).send('Dispositivo no encontrado');
         }
@@ -304,7 +314,7 @@ app.delete('/borrar-dispositivo/:dispositivoId', async (req, res) => {
 });
 
 app.post('/guardar', async (req, res) => {
-    const { estado, actualizacion, fecha, encargado, id, articulo, marca, modelo, numeroSerie, nombreEquipo, sistemaOperativo, version, tipoSistema, dominio, marcaProcesador, modeloProcesador, generacion, ghz, graficos, modeloGraficos, GPU, almacenamientoGB, tipoAlmacenamiento, marcaAlmacenamiento, tipoRam, velocidadRam, capacidadRam, ranurasUso, totalRam, capacidadUtilizable, marcaRam, modeloRam, velocidadDescarga, velocidadSubida, ping, departamentoResguardo, resguardante, usoPor, observaciones, recomendaciones } = req.body;
+    const { estado, actualizacion, fecha, encargado, id, articulo, marca, modelo, numeroSerie, nombreEquipo, sistemaOperativo, version, tipoSistema, dominio, marcaProcesador, modeloProcesador, generacion, ghz, graficos, modeloGraficos, GPU, almacenamientoGB, tipoAlmacenamiento, marcaAlmacenamiento, tipoRam, velocidadRam, capacidadRam, ranurasUso, totalRam, capacidadUtilizable, marcaRam, modeloRam, departamentoResguardo, resguardante, usoPor, observaciones, recomendaciones } = req.body;
 
     const dispositivo = new Dispositivos({
         estadoEquipo: {
@@ -351,12 +361,6 @@ app.post('/guardar', async (req, res) => {
             marcaRam,
             modeloRam,
         },
-        informacionInternet: {
-            fechaTestInternet: new Date(fecha),
-            velocidadDescarga,
-            velocidadSubida,
-            ping,
-        },
         informacionResguardo: {
             departamentoResguardo,
             resguardante,
@@ -379,6 +383,31 @@ app.post('/guardar', async (req, res) => {
     }
 });
 
+app.post('/actualizar/:dispositivoId', async (req, res) => {
+    const dispositivoId = req.params.dispositivoId;
+    const {
+        estado,
+    } = req.body;
+
+    try {
+        const dispositivo = await Dispositivos.findById(dispositivoId);
+        if (!dispositivo) {
+            return res.status(404).send('Dispositivo no encontrado');
+        }
+
+        // Actualiza las propiedades del dispositivo
+        dispositivo.estadoEquipo.estado = estado;
+        // Actualiza otras propiedades
+
+        // Guarda el dispositivo actualizado en la base de datos
+        await dispositivo.save();
+
+        res.redirect('/inicio'); // Redirige a la página deseada después de la actualización
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al actualizar la información');
+    }
+});
 
 app.listen(port, () => {
     console.log(`Servidor en ejecución en http://localhost:${port}`);

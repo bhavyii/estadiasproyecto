@@ -1,5 +1,5 @@
 doctype html
-html
+html(lang='en')
   head
     meta(charset='UTF-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
@@ -7,6 +7,7 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='style/styles.css')
     title Seguimiento de dispositivos
+    
   body
     header
       button#back.btn-back(type='button', onclick='location.href="/principal"')
@@ -39,7 +40,8 @@ html
                       a(href=`/detalles/${dispositivo._id}`)
                         button.btn.verde Ver
                   td
-                      button.btn.azul Editar
+                      a(href=`/editar/${dispositivo._id}`)
+                        button.btn.azul Editar
                   td
                       button.btn.rojo(onclick='borrarDispositivo("' + dispositivo._id + '")') Borrar
     footer &copy; Universidad Tecnol&oacute;gica de Tamaulipas Norte - 2023
