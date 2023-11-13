@@ -41,8 +41,11 @@ html(lang='en')
         br
         label(for='password') Contrase&ntilde;a:
         div(style='display: flex; align-items: center;')
-          input#password(type='password', name='password', required)
-          span(style='cursor: pointer; padding: 4px;', onclick='togglePasswordVisibility()') x
+          div(style='display: flex; align-items: center; width: 550px')
+            input#password(type='password', name='password', required)
+          div(style='display: flex; align-items: center; margin-bottom: 10px')
+            span(style='cursor: pointer; padding: 4px;', onclick='togglePasswordVisibility()')
+              img(src='img/ojo.png', alt='Mostrar Contraseña', style= 'height:40px')
         button(type='submit') Registrarse
       p
         | &iquest;Ya tienes una cuenta? 

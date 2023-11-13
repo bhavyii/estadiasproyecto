@@ -516,7 +516,7 @@ app.post('/actualizar/:dispositivoId', async (req, res) => {
             await dispositivo.save();
         }
 
-        res.redirect('/editar/' + dispositivoId); // Redirige a la página deseada después de la actualización
+        res.redirect('/inicio'); // Redirige a la página deseada después de la actualización
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al actualizar la información');
