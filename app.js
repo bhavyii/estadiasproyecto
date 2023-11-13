@@ -44,6 +44,15 @@ const usuariosSchema = new mongoose.Schema({
     nombre: { type: String, default: "" },
 });
 
+const historialSchema = new mongoose.Schema({
+    fecha: { type: Date, default: Date.now },
+    cambios: [{
+        propiedad: String,
+        valorAnterior: String,
+        valorNuevo: String
+    }]
+});
+
 const dispositivosSchema = new mongoose.Schema({
     estadoEquipo: {
         estado: { type: String, default: "" },
@@ -73,7 +82,6 @@ const dispositivosSchema = new mongoose.Schema({
         ghz: { type: String, default: "" },
         graficos: { type: String, default: "" },
         modeloGraficos: { type: String, default: "" },
-        GPU: { type: String, default: "" },
     },
     informacionAlmacenamiento: {
         almacenamientoGB: { type: String, default: "" },
@@ -86,7 +94,6 @@ const dispositivosSchema = new mongoose.Schema({
         capacidadRam: { type: String, default: "" },
         ranurasUso: { type: String, default: "" },
         totalRam: { type: String, default: "" },
-        capacidadUtilizable: { type: String, default: "" },
         marcaRam: { type: String, default: "" },
         modeloRam: { type: String, default: "" },
     },
@@ -98,7 +105,8 @@ const dispositivosSchema = new mongoose.Schema({
     anotaciones: {
         observaciones: { type: String, default: "" },
         recomendaciones: { type: String, default: "" },
-    }
+    },
+    historial: [historialSchema]
 })
 
 const Dispositivos = mongoose.model("Dispositivos", dispositivosSchema);
@@ -170,6 +178,10 @@ app.get('/detalles', requireLogin, (req, res) => {
     res.render('detalles');
 });
 
+app.get('/historial', requireLogin, (req, res) => {
+    res.render('historial');
+});
+
 app.get('/cerrar-sesion', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -179,6 +191,23 @@ app.get('/cerrar-sesion', (req, res) => {
         }
     });
 });
+
+app.get('/historial/:dispositivoId', requireLogin, async (req, res) => {
+    try {
+        const dispositivoId = req.params.dispositivoId;
+        // Busca el dispositivo por su ID en la base de datos
+        const dispositivo = await Dispositivos.findById(dispositivoId);
+        if (dispositivo) {
+            res.render('historial', { dispositivo });
+        } else {
+            res.status(404).send('Dispositivo no encontrado');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al obtener el historial del dispositivo');
+    }
+});
+
 
 app.get('/detalles/:dispositivoId', requireLogin, async (req, res) => {
     try {
@@ -314,7 +343,7 @@ app.delete('/borrar-dispositivo/:dispositivoId', async (req, res) => {
 });
 
 app.post('/guardar', async (req, res) => {
-    const { estado, actualizacion, fecha, encargado, id, articulo, marca, modelo, numeroSerie, nombreEquipo, sistemaOperativo, version, tipoSistema, dominio, marcaProcesador, modeloProcesador, generacion, ghz, graficos, modeloGraficos, GPU, almacenamientoGB, tipoAlmacenamiento, marcaAlmacenamiento, tipoRam, velocidadRam, capacidadRam, ranurasUso, totalRam, capacidadUtilizable, marcaRam, modeloRam, departamentoResguardo, resguardante, usoPor, observaciones, recomendaciones } = req.body;
+    const { estado, actualizacion, fecha, encargado, id, articulo, marca, modelo, numeroSerie, nombreEquipo, sistemaOperativo, version, tipoSistema, dominio, marcaProcesador, modeloProcesador, generacion, ghz, graficos, modeloGraficos, almacenamientoGB, tipoAlmacenamiento, marcaAlmacenamiento, tipoRam, velocidadRam, capacidadRam, ranurasUso, totalRam, marcaRam, modeloRam, departamentoResguardo, resguardante, usoPor, observaciones, recomendaciones } = req.body;
 
     const dispositivo = new Dispositivos({
         estadoEquipo: {
@@ -327,8 +356,8 @@ app.post('/guardar', async (req, res) => {
             id,
             articulo,
             marca,
-            modelo,
             numeroSerie,
+            modelo,
         },
         informacionSistema: {
             nombreEquipo,
@@ -344,7 +373,6 @@ app.post('/guardar', async (req, res) => {
             ghz,
             graficos,
             modeloGraficos,
-            GPU,
         },
         informacionAlmacenamiento: {
             almacenamientoGB,
@@ -357,7 +385,6 @@ app.post('/guardar', async (req, res) => {
             capacidadRam,
             ranurasUso,
             totalRam,
-            capacidadUtilizable,
             marcaRam,
             modeloRam,
         },
@@ -385,9 +412,7 @@ app.post('/guardar', async (req, res) => {
 
 app.post('/actualizar/:dispositivoId', async (req, res) => {
     const dispositivoId = req.params.dispositivoId;
-    const {
-        estado,
-    } = req.body;
+    const { estado, actualizacion, encargado, id, articulo, marca, modelo, numeroSerie, nombreEquipo, sistemaOperativo, version, tipoSistema, dominio, marcaProcesador, modeloProcesador, generacion, ghz, graficos, modeloGraficos, almacenamientoGB, tipoAlmacenamiento, marcaAlmacenamiento, tipoRam, velocidadRam, capacidadRam, ranurasUso, totalRam, marcaRam, modeloRam, departamentoResguardo, resguardante, usoPor, observaciones, recomendaciones } = req.body;
 
     try {
         const dispositivo = await Dispositivos.findById(dispositivoId);
@@ -395,14 +420,103 @@ app.post('/actualizar/:dispositivoId', async (req, res) => {
             return res.status(404).send('Dispositivo no encontrado');
         }
 
-        // Actualiza las propiedades del dispositivo
-        dispositivo.estadoEquipo.estado = estado;
-        // Actualiza otras propiedades
+        const cambios = [];
 
-        // Guarda el dispositivo actualizado en la base de datos
-        await dispositivo.save();
+        // Función para agregar cambios al historial
+        const agregarCambio = (propiedad, valorAnterior, valorNuevo) => {
+            if (valorAnterior !== valorNuevo) {
+                cambios.push({
+                    propiedad,
+                    valorAnterior,
+                    valorNuevo
+                });
+            }
+        };
 
-        res.redirect('/inicio'); // Redirige a la página deseada después de la actualización
+        agregarCambio('Estado', dispositivo.estadoEquipo.estado, estado);
+        agregarCambio('Actualización', dispositivo.estadoEquipo.actualizacion, actualizacion);
+        agregarCambio('Encargado', dispositivo.estadoEquipo.encargado, encargado);
+        agregarCambio('Id', dispositivo.informacionArticulo.id, id);
+        agregarCambio('Articulo', dispositivo.informacionArticulo.articulo, articulo);
+        agregarCambio('Marca', dispositivo.informacionArticulo.marca, marca);
+        agregarCambio('Modelo', dispositivo.informacionArticulo.modelo, modelo);
+        agregarCambio('Numero de serie', dispositivo.informacionArticulo.numeroSerie, numeroSerie);
+        agregarCambio('Nombre de equipo', dispositivo.informacionSistema.nombreEquipo, nombreEquipo);
+        agregarCambio('Sistema operativo', dispositivo.informacionSistema.sistemaOperativo, sistemaOperativo);
+        agregarCambio('Version', dispositivo.informacionSistema.version, version);
+        agregarCambio('Tipo de sistema', dispositivo.informacionSistema.tipoSistema, tipoSistema);
+        agregarCambio('Dominio', dispositivo.informacionSistema.dominio, dominio);
+        agregarCambio('Marca del procesador', dispositivo.informacionProcesador.marcaProcesador, marcaProcesador);
+        agregarCambio('Modelo de procesador', dispositivo.informacionProcesador.modeloProcesador, modeloProcesador);
+        agregarCambio('Generacion', dispositivo.informacionProcesador.generacion, generacion);
+        agregarCambio('Ghz', dispositivo.informacionProcesador.ghz, ghz);
+        agregarCambio('Graficos', dispositivo.informacionProcesador.graficos, graficos);
+        agregarCambio('Modelo de graficos', dispositivo.informacionProcesador.modeloGraficos, modeloGraficos);
+        agregarCambio('Almacenamiento', dispositivo.informacionAlmacenamiento.almacenamientoGB, almacenamientoGB);
+        agregarCambio('Tipo de almacenamiento', dispositivo.informacionAlmacenamiento.tipoAlmacenamiento, tipoAlmacenamiento);
+        agregarCambio('Marca del almacenamiento', dispositivo.informacionAlmacenamiento.marcaAlmacenamiento, marcaAlmacenamiento);
+        agregarCambio('Tipo de RAM', dispositivo.informacionRam.tipoRam, tipoRam);
+        agregarCambio('Velocidad de la RAM', dispositivo.informacionRam.velocidadRam, velocidadRam);
+        agregarCambio('Capacidad de la RAM', dispositivo.informacionRam.capacidadRam, capacidadRam);
+        agregarCambio('Ranuras en uso', dispositivo.informacionRam.ranurasUso, ranurasUso);
+        agregarCambio('Total de RAM', dispositivo.informacionRam.totalRam, totalRam);
+        agregarCambio('Marca de la RAM', dispositivo.informacionRam.marcaRam, marcaRam);
+        agregarCambio('Modelo de la RAM', dispositivo.informacionRam.modeloRam, modeloRam);
+        agregarCambio('Departamento de resguardo', dispositivo.informacionResguardo.departamentoResguardo, departamentoResguardo);
+        agregarCambio('Resguardante', dispositivo.informacionResguardo.resguardante, resguardante);
+        agregarCambio('En uso por', dispositivo.informacionResguardo.usoPor, usoPor);
+        agregarCambio('Observaciones', dispositivo.anotaciones.observaciones, observaciones);
+        agregarCambio('Recomendaciones', dispositivo.anotaciones.recomendaciones, recomendaciones);
+
+        // Verifica si hay cambios antes de agregar al historial y guardar en la base de datos
+        if (cambios.length > 0) {
+            dispositivo.historial.push({
+                fecha: new Date(),
+                cambios
+            });
+
+            // Actualiza las propiedades del dispositivo
+            dispositivo.estadoEquipo.estado = estado;
+            dispositivo.estadoEquipo.actualizacion = actualizacion;
+            dispositivo.estadoEquipo.encargado = encargado;
+            dispositivo.informacionArticulo.id = id;
+            dispositivo.informacionArticulo.articulo = articulo;
+            dispositivo.informacionArticulo.marca = marca;
+            dispositivo.informacionArticulo.numeroSerie = numeroSerie;
+            dispositivo.informacionArticulo.modelo = modelo;
+            dispositivo.informacionSistema.nombreEquipo = nombreEquipo;
+            dispositivo.informacionSistema.sistemaOperativo = sistemaOperativo;
+            dispositivo.informacionSistema.version = version;
+            dispositivo.informacionSistema.tipoSistema = tipoSistema;
+            dispositivo.informacionSistema.dominio = dominio;
+            dispositivo.informacionProcesador.marcaProcesador = marcaProcesador;
+            dispositivo.informacionProcesador.modeloProcesador = modeloProcesador;
+            dispositivo.informacionProcesador.generacion = generacion;
+            dispositivo.informacionProcesador.ghz = ghz;
+            dispositivo.informacionProcesador.graficos = graficos;
+            dispositivo.informacionProcesador.modeloGraficos = modeloGraficos;
+            dispositivo.informacionAlmacenamiento.almacenamientoGB = almacenamientoGB;
+            dispositivo.informacionAlmacenamiento.tipoAlmacenamiento = tipoAlmacenamiento;
+            dispositivo.informacionAlmacenamiento.marcaAlmacenamiento = marcaAlmacenamiento;
+            dispositivo.informacionRam.tipoRam = tipoRam;
+            dispositivo.informacionRam.velocidadRam = velocidadRam;
+            dispositivo.informacionRam.capacidadRam = capacidadRam;
+            dispositivo.informacionRam.ranurasUso = ranurasUso;
+            dispositivo.informacionRam.totalRam = totalRam;
+            dispositivo.informacionRam.marcaRam = marcaRam;
+            dispositivo.informacionRam.modeloRam = modeloRam;
+            dispositivo.informacionResguardo.departamentoResguardo = departamentoResguardo;
+            dispositivo.informacionResguardo.resguardante = resguardante;
+            dispositivo.informacionResguardo.usoPor = usoPor;
+            dispositivo.anotaciones.observaciones = observaciones;
+            dispositivo.anotaciones.recomendaciones = recomendaciones;
+            // Actualiza otras propiedades
+
+            // Guarda el dispositivo actualizado en la base de datos
+            await dispositivo.save();
+        }
+
+        res.redirect('/editar/' + dispositivoId); // Redirige a la página deseada después de la actualización
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al actualizar la información');

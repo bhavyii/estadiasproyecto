@@ -15,7 +15,7 @@ html(lang="en")
       input[type="text"],
       select,
       textarea,
-      input[type="date"] {
+      input[type="datetime-local"] {
         width: 85%;
         padding: 10px;
         margin-top: 5px;
@@ -91,20 +91,20 @@ html(lang="en")
           div.tab-content.active#content1
               label(for="estado") Estado:
               select#estado(name="estado")
-                option(value="seleccionarestado") Selecionar Estado del Articulo
-                option(value="excelente") Excelente
-                option(value="bueno") Bueno
-                option(value="pendiente") Pendiente
-                option(value="mala") Mala
-                option(value="deficiente") Deficiente
+                option(value="Seleccionar el estado") Selecionar Estado del Articulo
+                option(value="Excelente") Excelente
+                option(value="Bueno") Bueno
+                option(value="Pendiente") Pendiente
+                option(value="Mala") Mala
+                option(value="Deficiente") Deficiente
               label(for="actualizacion") Actualización:
               select(name="actualizacion")
-                option(value="SI") SI
-                option(value="NO") NO
+                option(value="Si") Si
+                option(value="No") No
                 option(value="Pendiente") Pendiente
                 option(value="Sin Datos") Sin Datos
-              label(for="fecha") Fecha de información actualizada:
-              input#fecha(type="date" name="fecha")
+              label(for="fecha") Fecha de información actualizada:            
+              input#fecha(type="datetime-local" name="fecha")
               label(for="encargado") Encargado:
               input#encargado(type="text" name="encargado")
           div.tab-content#content2
@@ -159,8 +159,6 @@ html(lang="en")
             input#graficos(type="text" name="graficos")
             label(for="modeloGraficos") Modelo de Gráficos:
             input#modeloGraficos(type="text" name="modeloGraficos")
-            label(for="GPU") GPU:
-            input#GPU(type="text" name="GPU")
           div.tab-content#content5
             label(for="almacenamientoGB") Espacio de almacenamiento:
             input#almacenamientoGB(type="text" name="almacenamientoGB")
@@ -182,44 +180,42 @@ html(lang="en")
             input#ranurasUso(type="text" name="ranurasUso")
             label(for="totalRam") Total de RAM (GB):
             input#totalRam(type="text" name="totalRam")
-            label(for="capacidadUtilizable") Capacidad Utilizable (GB):
-            input#capacidadUtilizable(type="text" name="capacidadUtilizable")
             label(for="marcaRam") Marca de la RAM:
             input#marcaRam(type="text" name="marcaRam")
             label(for="modeloRam") Modelo de la RAM:
             input#modeloRam(type="text" name="modeloRam")
           div.tab-content#content7
             label(for="departamentoResguardo") Departamento de Resguardo:
-              select#departamentoResguardo(name="departamentoResguardo")
-                option(value="Seleccionar Departamento") Seleccionar Departamento
-                option(value="Tecnologías de la Información") Tecnologías de la Información
-                option(value="Procesos Industriales") Procesos Industriales
-                option(value="Departamento de Planeación y Evaluación") Departamento de Planeación y Evaluación
-                option(value="Vinculación") Vinculación
-                option(value="Administración") Administración
-                option(value="Mecatrónica") Mecatrónica
-                option(value="DIPROSET") DIPROSET
-                option(value="Extensión Universitaria") Extensión Universitaria
-                option(value="Administración y Finanzas") Administración y Finanzas
-                option(value="Rectoría") Rectoría
-                option(value="Energías Renovables") Energías Renovables
-                option(value="Departamento de Personal") Departamento de Personal
-                option(value="Mantenimiento Industrial") Mantenimiento Industrial
-                option(value="Departamento de Prácticas y Estadías") Departamento de Prácticas y Estadías
-                option(value="Departamento Calidad de Servicio de Apoyo al Estudiante") Departamento Calidad de Servicio de Apoyo al Estudiante
-                option(value="Departamento de Contabilidad") Departamento de Contabilidad
-                option(value="Departamento de Sistemas") Departamento de Sistemas
-                option(value="Departamento de Prensa y Difusión") Departamento de Prensa y Difusión
-                option(value="Departamento de Servicios Escolares") Departamento de Servicios Escolares
-                option(value="Departamento de Programación y Pre") Departamento de Programación y Pre
-                option(value="Departamento de Materiales y Servicios Generales") Departamento de Materiales y Servicios Generales
-                option(value="Departamento de Mantenimiento e Instalación") Departamento de Mantenimiento e Instalación
-                option(value="Departamento de Inclusión") Departamento de Inclusión
-                option(value="Departamento Planeación Calidad") Departamento Planeación Calidad
-                option(value="Departamento de Servicios Bibliotecarios") Departamento de Servicios Bibliotecarios
-                option(value="Departamento de Servicios Estudiantiles") Departamento de Servicios Estudiantiles
-                option(value="Departamento de Investigación y Desarrollo") Departamento de Investigación y Desarrollo
-                option(value="Departamento de Cultura y Deporte") Departamento de Cultura y Deporte
+            select#departamentoResguardo(name="departamentoResguardo")
+              option(value="Seleccionar Departamento") Seleccionar Departamento
+              option(value="Tecnologías de la Información") Tecnologías de la Información
+              option(value="Procesos Industriales") Procesos Industriales
+              option(value="Departamento de Planeación y Evaluación") Departamento de Planeación y Evaluación
+              option(value="Vinculación") Vinculación
+              option(value="Administración") Administración
+              option(value="Mecatrónica") Mecatrónica
+              option(value="DIPROSET") DIPROSET
+              option(value="Extensión Universitaria") Extensión Universitaria
+              option(value="Administración y Finanzas") Administración y Finanzas
+              option(value="Rectoría") Rectoría
+              option(value="Energías Renovables") Energías Renovables
+              option(value="Departamento de Personal") Departamento de Personal
+              option(value="Mantenimiento Industrial") Mantenimiento Industrial
+              option(value="Departamento de Prácticas y Estadías") Departamento de Prácticas y Estadías
+              option(value="Departamento Calidad de Servicio de Apoyo al Estudiante") Departamento Calidad de Servicio de Apoyo al Estudiante
+              option(value="Departamento de Contabilidad") Departamento de Contabilidad
+              option(value="Departamento de Sistemas") Departamento de Sistemas
+              option(value="Departamento de Prensa y Difusión") Departamento de Prensa y Difusión
+              option(value="Departamento de Servicios Escolares") Departamento de Servicios Escolares
+              option(value="Departamento de Programación y Pre") Departamento de Programación y Pre
+              option(value="Departamento de Materiales y Servicios Generales") Departamento de Materiales y Servicios Generales
+              option(value="Departamento de Mantenimiento e Instalación") Departamento de Mantenimiento e Instalación
+              option(value="Departamento de Inclusión") Departamento de Inclusión
+              option(value="Departamento Planeación Calidad") Departamento Planeación Calidad
+              option(value="Departamento de Servicios Bibliotecarios") Departamento de Servicios Bibliotecarios
+              option(value="Departamento de Servicios Estudiantiles") Departamento de Servicios Estudiantiles
+              option(value="Departamento de Investigación y Desarrollo") Departamento de Investigación y Desarrollo
+              option(value="Departamento de Cultura y Deporte") Departamento de Cultura y Deporte
             label(for="resguardante") Resguardante:
             input#resguardante(type="text" name="resguardante")
             label(for="usoPor") En Uso Por:
@@ -251,3 +247,16 @@ html(lang="en")
         tabContents[index].classList.add('active');
       });
     });
+  
+  script.
+    const now = new Date();
+    const offsetMinutes = now.getTimezoneOffset();
+    const offsetHours = offsetMinutes / 60;
+    const offset = (offsetHours >= 0 ? '+' : '-') +
+                  ('0' + Math.abs(offsetHours)).slice(-2) +
+                  ':' +
+                  ('0' + Math.abs(offsetMinutes % 60)).slice(-2);
+
+    const formattedDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, -8);
+    document.getElementById('fecha').value = formattedDate;
+

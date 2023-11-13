@@ -1,0 +1,52 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    base(href='/inicio')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='style/styles.css')
+    title Seguimiento de dispositivos
+    style.
+
+        table#miTabla {
+        border-collapse: collapse;
+        border: 2px solid #3498db;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 800px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        margin: 0 auto;
+        margin-bottom: 50px;
+        }
+        th#tituloTabla {
+        background-color: #1ab192;
+        color: white;
+        text-align: center;
+        }
+        th, td {
+        border: 1px solid #1ab192;
+        padding: 10px 20px;
+        text-align: justify;
+        }
+        tr:nth-child(even) {
+        background-color: #f2f2f2;
+        }
+  div.containergen
+    body
+      header
+        button#back.btn-back(type='button', onclick='location.href="/principal"')
+          img(src='img/back.png', alt='back')
+        .logo
+          img(src='img/uttnlogl.png', alt='Encabezado')
+        button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
+    table#miTabla
+        tr
+            th#tituloTabla(colspan='2') Historial de Cambios
+                 each cambio in dispositivo.historial
+                  tr
+                    th Fecha: #{cambio.fecha.toLocaleString()}
+                    td
+                        each detalle in cambio.cambios
+                            li #{detalle.propiedad}: #{detalle.valorAnterior} -> #{detalle.valorNuevo}
+    footer &copy; Universidad Tecnológica de Tamaulipas Norte - 2023
