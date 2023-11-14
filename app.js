@@ -66,7 +66,7 @@ const dispositivosSchema = new mongoose.Schema({
         marca: { type: String, default: "" },
         modelo: { type: String, default: "" },
         numeroSerie: { type: String, default: "" },
-        tiempoVida: { type: String, default: "3 años" },
+        tiempoVida: { type: String, default: "Por definir" },
     },
     informacionSistema: {
         nombreEquipo: { type: String, default: "" },

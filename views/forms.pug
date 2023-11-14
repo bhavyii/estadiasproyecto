@@ -76,7 +76,8 @@ html(lang="en")
           img(src='img/back.png', alt='back')
         .logo
           img(src='img/uttnlogl.png', alt='Encabezado')
-        button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
+        button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"')
+          img(src='img/cerrarsesion.png', alt='back', style='height:30px')
       form(action="/guardar", method="POST")
         div.container
           div.tabs
@@ -232,7 +233,8 @@ html(lang="en")
             textarea#observaciones(name="observaciones" rows="4" cols="50")
             label(for="recomendaciones") Recomendaciones:
             textarea#recomendaciones(name="recomendaciones" rows="4" cols="50")
-            button(type="submit") Guardar
+            button(type="submit")
+              img(src='img/guardar.png', alt='back', style='height:30px') 
       footer &copy; Universidad Tecnológica de Tamaulipas Norte - 2023
     
   script.

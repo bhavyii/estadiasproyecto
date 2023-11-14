@@ -153,7 +153,12 @@ table.gris tr:hover {
 }
 
 .btn.verde {
-  background-color: #4caf50;
+  background-color: #91f195;
+  color: white;
+}
+
+.btn.blanco {
+  background-color: #ffffff;
   color: white;
 }
 

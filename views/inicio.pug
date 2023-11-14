@@ -14,7 +14,8 @@ div.containergen
           img(src='img/back.png', alt='back')
       .logo
         img(src='img/uttnlogl.png', alt='Encabezado')
-      button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') Cerrar Sesión
+      button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') 
+        img(src='img/cerrarsesion.png', alt='back', style='height:30px') 
     table.gris
       caption
           | Dispositivos registrados
@@ -39,15 +40,19 @@ div.containergen
                   td= dispositivo.informacionResguardo.resguardante
                   td
                       a(href=`/detalles/${dispositivo._id}`)
-                        button.btn.verde Ver
+                        button.btn.verde
+                          img(src='img/ver.png', alt='back', style='height:30px') 
                   td
                       a(href=`/editar/${dispositivo._id}`)
-                        button.btn.azul Editar
+                        button.btn.azul 
+                          img(src='img/editar.png', alt='back', style='height:30px')                         
                   td 
                       a(href=`/historial/${dispositivo._id}`)
-                        button.btn.azul Historial  
+                        button.btn.blanco
+                          img(src='img/historial.png', alt='back', style='height:30px')   
                   td
-                      button.btn.rojo(onclick='borrarDispositivo("' + dispositivo._id + '")') Borrar
+                      button.btn.rojo(onclick='borrarDispositivo("' + dispositivo._id + '")')
+                        img(src='img/borrar.png', alt='back', style='height:30px') 
     footer &copy; Universidad Tecnol&oacute;gica de Tamaulipas Norte - 2023
 
 script.
