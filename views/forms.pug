@@ -81,34 +81,15 @@ html(lang="en")
       form(action="/guardar", method="POST")
         div.container
           div.tabs
-            div.tab.active#tab1 Estado del Equipo
-            div.tab#tab2 Información del Artículo
+            div.tab.active#tab1 Informacion del articulo
+            div.tab#tab2 Estado del Equipo
             div.tab#tab3 Información del Sistema
             div.tab#tab4 Información del Procesador
             div.tab#tab5 Información de Almacenamiento
             div.tab#tab6 Información de la RAM
             div.tab#tab7 Información de Resguardo
-            div.tab#tab8 Anotaciones
+            div.tab#tab8 Anotaciones     
           div.tab-content.active#content1
-              label(for="estado") Estado:
-              select#estado(name="estado")
-                option(value="Seleccionar el estado") Selecionar Estado del Articulo
-                option(value="Excelente") Excelente
-                option(value="Bueno") Bueno
-                option(value="Pendiente") Pendiente
-                option(value="Mala") Mala
-                option(value="Deficiente") Deficiente
-              label(for="actualizacion") Actualización:
-              select(name="actualizacion")
-                option(value="Si") Si
-                option(value="No") No
-                option(value="Pendiente") Pendiente
-                option(value="Sin Datos") Sin Datos
-              label(for="fecha") Fecha de información actualizada:            
-              input#fecha(type="datetime-local" name="fecha")
-              label(for="encargado") Encargado:
-              input#encargado(type="text" name="encargado")
-          div.tab-content#content2
             label(for="id") ID:
             input#id(type="text" name="id")
             label(for="articulo") Artículo:
@@ -129,6 +110,25 @@ html(lang="en")
             input#modelo(type="text" name="modelo")
             label(for="numeroSerie") Número de Serie:
             input#numeroSerie(type="text" name="numeroSerie")
+          div.tab-content#content2
+              label(for="estado") Estado:
+              select#estado(name="estado")
+                option(value="Seleccionar el estado") Selecionar Estado del Articulo
+                option(value="Excelente") Excelente
+                option(value="Bueno") Bueno
+                option(value="Pendiente") Pendiente
+                option(value="Mala") Mala
+                option(value="Deficiente") Deficiente
+              label(for="actualizacion") Actualización:
+              select(name="actualizacion")
+                option(value="Si") Si
+                option(value="No") No
+                option(value="Pendiente") Pendiente
+                option(value="Sin Datos") Sin Datos
+              label(for="fecha") Fecha de información actualizada:            
+              input#fecha(type="datetime-local" name="fecha")
+              label(for="encargado") Encargado:
+              input#encargado(type="text" name="encargado")
           div.tab-content#content3
             label(for="nombreEquipo") Nombre del Equipo:
             input#nombreEquipo(type="text" name="nombreEquipo")

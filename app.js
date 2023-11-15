@@ -523,6 +523,29 @@ app.post('/actualizar/:dispositivoId', async (req, res) => {
     }
 });
 
+app.get('/search/:keyword', async (req, res) => {
+    try {
+        const keyword = req.params.keyword;
+        const resultados = await Dispositivos.find({
+            $or: [
+                { 'informacionResguardo.resguardante': { $regex: keyword, $options: 'i' } },
+                { 'informacionArticulo.modelo': { $regex: keyword, $options: 'i' } },
+                { 'informacionArticulo.articulo': { $regex: keyword, $options: 'i' } },
+                { 'informacionArticulo.marca': { $regex: keyword, $options: 'i' } },
+                { 'informacionArticulo.id': { $regex: keyword, $options: 'i' } },
+                // Agrega más condiciones según sea necesario
+            ]
+        });
+
+        res.json(resultados);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al buscar dispositivos' });
+    }
+});
+
+
+
 app.listen(port, () => {
     console.log(`Servidor en ejecución en http://localhost:${port}`);
 });
