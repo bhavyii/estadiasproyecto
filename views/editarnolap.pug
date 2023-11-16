@@ -91,26 +91,25 @@ html(lang="en")
             img(src='/img/uttnlogl.webp', alt='Encabezado')
         button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"')
           img(src='/img/cerrarsesion.webp', alt='back', style='height:30px')
-      form(action=`/actualizar/${dispositivo._id}`, method="POST")
+      form(action=`/actualizarnolap/${dispositivo._id}`, method="POST")
         div.container
           div.tabs
             div.tab.active#tab1 Información del Artículo
             div.tab#tab2 Estado del Equipo 
-            div.tab#tab3 Información del Sistema
-            div.tab#tab4 Información del Procesador
-            div.tab#tab5 Información de Almacenamiento
-            div.tab#tab6 Información de la RAM
-            div.tab#tab7 Información de Resguardo
-            div.tab#tab8 Anotaciones
+            div.tab#tab3 Información de Resguardo
+            div.tab#tab4 Anotaciones
           div.tab-content.active#content1  
             label(for="id") ID:
             input#id(type="text" name="id" value=dispositivo.informacionArticulo.id)
             label(for="articulo") Artículo:
             select#articulo(name="articulo")
               option(value="Seleccionar el articulo", selected=dispositivo.informacionArticulo.articulo === "Seleccionar el articulo") Seleccionar Articulo
-              option(value="CPU", selected=dispositivo.informacionArticulo.articulo === "CPU") CPU
-              option(value="Laptop", selected=dispositivo.informacionArticulo.articulo === "Laptop") Laptop
-              option(value="Allinone", selected=dispositivo.informacionArticulo.articulo === "Allinone") All In One
+              option(value="Camarasweb", selected=dispositivo.informacionArticulo.articulo === "Camarasweb") Cámaras Web
+              option(value="Reguladores", selected=dispositivo.informacionArticulo.articulo === "Reguladores") Reguladores
+              option(value="Servidores", selected=dispositivo.informacionArticulo.articulo === "Servidores") Servidores
+              option(value="Switch", selected=dispositivo.informacionArticulo.articulo === "Switch") Switch
+              option(value="HUB", selected=dispositivo.informacionArticulo.articulo === "HUB") HUB
+              option(value="Audifonos", selected=dispositivo.informacionArticulo.articulo === "Audifonos") Diadema(Audifonos)
             label(for="marca") Marca:
             input#marca(type="text" name="marca" value=dispositivo.informacionArticulo.marca)
             label(for="modelo") Modelo:
@@ -136,62 +135,6 @@ html(lang="en")
               label(for="encargado") Encargado:
               input#encargado(type="text" name="encargado" value=dispositivo.estadoEquipo.encargado)
           div.tab-content#content3
-            label(for="nombreEquipo") Nombre del Equipo:
-            input#nombreEquipo(type="text" name="nombreEquipo" value=dispositivo.informacionSistema.nombreEquipo)
-            label(for="sistemaOperativo") Sistema Operativo:
-            input#sistemaOperativo(type="text" name="sistemaOperativo" value=dispositivo.informacionSistema.sistemaOperativo)
-            label(for="version") Versión:
-            input#version(type="text" name="version" value=dispositivo.informacionSistema.version)
-            label(for="tipoSistema") Tipo de Sistema:
-            select#tipoSistema(name="tipoSistema")
-              option(value="Seleccionar sistema", selected=dispositivo.informacionSistema.tipoSistema === "Seleccionar sistema") Seleccionar Tipo De Sistema
-              option(value="32 bits", selected=dispositivo.informacionSistema.tipoSistema === "32 bits") 32 bits
-              option(value="64 bits", selected=dispositivo.informacionSistema.tipoSistema === "64 bits") 64 bits
-            label(for="dominio") Dominio:
-            select#dominio(name="dominio" value=dispositivo.informacionSistema.dominio)
-              option(value="uttn.edu.mx") uttn.edu.mx
-          div.tab-content#content4
-            label(for="marcaProcesador") Marca del Procesador:
-            select#marcaProcesador(name="marcaProcesador")
-              option(value="Seleccionar procesador", selected=dispositivo.informacionProcesador.marcaProcesador === "Seleccionar procesador") Seleccionar Procesador
-              option(value="Intel", selected=dispositivo.informacionProcesador.marcaProcesador === "Intel") Intel
-              option(value="AMD", selected=dispositivo.informacionProcesador.marcaProcesador === "AMD") AMD
-            label(for="modeloProcesador") Modelo del Procesador:
-            input#modeloProcesador(type="text" name="modeloProcesador" value=dispositivo.informacionProcesador.modeloProcesador)
-            label(for="generacion") Generación:
-            input#generacion(type="text" name="generacion" value=dispositivo.informacionProcesador.generacion)
-            label(for="ghz") GHz:
-            input#ghz(type="text" name="ghz" value=dispositivo.informacionProcesador.ghz)
-            label(for="graficos") Gráficos:
-            input#graficos(type="text" name="graficos" value=dispositivo.informacionProcesador.graficos)
-            label(for="modeloGraficos") Modelo de Gráficos:
-            input#modeloGraficos(type="text" name="modeloGraficos" value=dispositivo.informacionProcesador.modeloGraficos)
-          div.tab-content#content5
-            label(for="almacenamientoGB") Espacio de almacenamiento:
-            input#almacenamientoGB(type="text" name="almacenamientoGB" value=dispositivo.informacionAlmacenamiento.almacenamientoGB)
-            label(for="tipoAlmacenamiento") Tipo de Almacenamiento:
-            select#tipoAlmacenamiento(name="tipoAlmacenamiento")
-              option(value="Seleccionar tipo de almacenamiento", selected=dispositivo.informacionAlmacenamiento.tipoAlmacenamiento === "Seleccionar tipo de almacenamiento") Seleccionar Tipo De Almacenamiento
-              option(value="HDD", selected=dispositivo.informacionAlmacenamiento.tipoAlmacenamiento === "HDD") HDD
-              option(value="SSD", selected=dispositivo.informacionAlmacenamiento.tipoAlmacenamiento === "SSD") SSD
-            label(for="marcaAlmacenamiento") Marca del Almacenamiento:
-            input#marcaAlmacenamiento(type="text" name="marcaAlmacenamiento" value=dispositivo.informacionAlmacenamiento.marcaAlmacenamiento)
-          div.tab-content#content6
-            label(for="tipoRam") Tipo de RAM:
-            input#tipoRam(type="text" name="tipoRam" value=dispositivo.informacionRam.tipoRam)
-            label(for="velocidadRam") Velocidad de la RAM (MHz):
-            input#velocidadRam(type="text" name="velocidadRam" value=dispositivo.informacionRam.velocidadRam)
-            label(for="capacidadRam") Capacidad de la RAM (GB):
-            input#capacidadRam(type="text" name="capacidadRam" value=dispositivo.informacionRam.capacidadRam)
-            label(for="ranurasUso") Ranuras en Uso:
-            input#ranurasUso(type="text" name="ranurasUso" value=dispositivo.informacionRam.ranurasUso)
-            label(for="totalRam") Total de RAM (GB):
-            input#totalRam(type="text" name="totalRam" value=dispositivo.informacionRam.totalRam)
-            label(for="marcaRam") Marca de la RAM:
-            input#marcaRam(type="text" name="marcaRam" value=dispositivo.informacionRam.marcaRam)
-            label(for="modeloRam") Modelo de la RAM:
-            input#modeloRam(type="text" name="modeloRam" value=dispositivo.informacionRam.modeloRam)
-          div.tab-content#content7
             label(for="departamentoResguardo") Departamento de Resguardo:
             select#departamentoResguardo(name="departamentoResguardo")
               option(value="Seleccionar Departamento", selected=dispositivo.informacionResguardo.departamentoResguardo === "Seleccionar Departamento") Seleccionar Departamento
@@ -234,7 +177,7 @@ html(lang="en")
               option(value="PTC", selected=dispositivo.informacionResguardo.usoPor === "PTC") PTC
               option(value="Abogado", selected=dispositivo.informacionResguardo.usoPor === "Abogado") Abogado
               option(value="Otro", selected=dispositivo.informacionResguardo.usoPor === "Otro") Otro
-          div.tab-content#content8
+          div.tab-content#content4
             label(for="observaciones") Observaciones:
             textarea#observaciones(name="observaciones" rows="4" cols="50")= dispositivo.anotaciones.observaciones
             label(for="recomendaciones") Recomendaciones:

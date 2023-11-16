@@ -55,56 +55,56 @@ const historialSchema = new mongoose.Schema({
 
 const dispositivosSchema = new mongoose.Schema({
     estadoEquipo: {
-        estado: { type: String, default: "" },
-        actualizacion: { type: String, default: "" },
+        estado: { type: String, default: "Sin información" },
+        actualizacion: { type: String, default: "Sin información" },
         fechaActualizacion: { type: Date, default: "" },
-        encargado: { type: String, default: "" },
+        encargado: { type: String, default: "Sin información" },
     },
     informacionArticulo: {
-        id: { type: String, default: "" },
-        articulo: { type: String, default: "" },
-        marca: { type: String, default: "" },
-        modelo: { type: String, default: "" },
-        numeroSerie: { type: String, default: "" },
+        id: { type: String, default: "Sin información" },
+        articulo: { type: String, default: "Sin información" },
+        marca: { type: String, default: "Sin información" },
+        modelo: { type: String, default: "Sin información" },
+        numeroSerie: { type: String, default: "Sin información" },
         tiempoVida: { type: String, default: "Por definir" },
     },
     informacionSistema: {
-        nombreEquipo: { type: String, default: "" },
-        sistemaOperativo: { type: String, default: "" },
-        version: { type: String, default: "" },
-        tipoSistema: { type: String, default: "" },
-        dominio: { type: String, default: "" },
+        nombreEquipo: { type: String, default: "Sin información" },
+        sistemaOperativo: { type: String, default: "Sin información" },
+        version: { type: String, default: "Sin información" },
+        tipoSistema: { type: String, default: "Sin información" },
+        dominio: { type: String, default: "Sin información" },
     },
     informacionProcesador: {
-        marcaProcesador: { type: String, default: "" },
-        modeloProcesador: { type: String, default: "" },
-        generacion: { type: String, default: "" },
-        ghz: { type: String, default: "" },
-        graficos: { type: String, default: "" },
-        modeloGraficos: { type: String, default: "" },
+        marcaProcesador: { type: String, default: "Sin información" },
+        modeloProcesador: { type: String, default: "Sin información" },
+        generacion: { type: String, default: "Sin información" },
+        ghz: { type: String, default: "Sin información" },
+        graficos: { type: String, default: "Sin información" },
+        modeloGraficos: { type: String, default: "Sin información" },
     },
     informacionAlmacenamiento: {
-        almacenamientoGB: { type: String, default: "" },
-        tipoAlmacenamiento: { type: String, default: "" },
-        marcaAlmacenamiento: { type: String, default: "" },
+        almacenamientoGB: { type: String, default: "Sin información" },
+        tipoAlmacenamiento: { type: String, default: "Sin información" },
+        marcaAlmacenamiento: { type: String, default: "Sin información" },
     },
     informacionRam: {
-        tipoRam: { type: String, default: "" },
-        velocidadRam: { type: String, default: "" },
-        capacidadRam: { type: String, default: "" },
-        ranurasUso: { type: String, default: "" },
-        totalRam: { type: String, default: "" },
-        marcaRam: { type: String, default: "" },
-        modeloRam: { type: String, default: "" },
+        tipoRam: { type: String, default: "Sin información" },
+        velocidadRam: { type: String, default: "Sin información" },
+        capacidadRam: { type: String, default: "Sin información" },
+        ranurasUso: { type: String, default: "Sin información" },
+        totalRam: { type: String, default: "Sin información" },
+        marcaRam: { type: String, default: "Sin información" },
+        modeloRam: { type: String, default: "Sin información" },
     },
     informacionResguardo: {
-        departamentoResguardo: { type: String, default: "" },
-        resguardante: { type: String, default: "" },
-        usoPor: { type: String, default: "" },
+        departamentoResguardo: { type: String, default: "Sin información" },
+        resguardante: { type: String, default: "Sin información" },
+        usoPor: { type: String, default: "Sin información" },
     },
     anotaciones: {
-        observaciones: { type: String, default: "" },
-        recomendaciones: { type: String, default: "" },
+        observaciones: { type: String, default: "Sin observaciones" },
+        recomendaciones: { type: String, default: "Sin recomendaciones" },
     },
     historial: [historialSchema]
 })
@@ -150,6 +150,22 @@ app.get('/principal', requireLogin, (req, res) => {
 
 app.get('/forms', requireLogin, (req, res) => {
     res.render('forms');
+});
+
+app.get('/formsnolap', requireLogin, (req, res) => {
+    res.render('formsnolap');
+});
+
+app.get('/detallesnolap', requireLogin, (req, res) => {
+    res.render('detallesnolap');
+});
+
+app.get('/editarnolap', requireLogin, (req, res) => {
+    res.render('editarnolap');
+});
+
+app.get('/menu', requireLogin, (req, res) => {
+    res.render('menu');
 });
 
 app.get('/usuarios', requireLogin, async (req, res) => {
@@ -208,14 +224,21 @@ app.get('/historial/:dispositivoId', requireLogin, async (req, res) => {
     }
 });
 
-
 app.get('/detalles/:dispositivoId', requireLogin, async (req, res) => {
     try {
         const dispositivoId = req.params.dispositivoId;
         // Busca el dispositivo por su ID en la base de datos
         const dispositivo = await Dispositivos.findById(dispositivoId);
+        
         if (dispositivo) {
-            res.render('detalles', { dispositivo });
+            let detallesPageRoute = 'detalles'; // Ruta por defecto
+
+            // Verifica si el artículo no es CPU, Laptop o Allinone
+            if (!['CPU', 'Laptop', 'Allinone'].includes(dispositivo.informacionArticulo.articulo)) {
+                detallesPageRoute = 'detallesnolap';
+            }
+
+            res.render(detallesPageRoute, { dispositivo });
         } else {
             res.status(404).send('Dispositivo no encontrado');
         }
@@ -231,7 +254,13 @@ app.get('/editar/:dispositivoId', requireLogin, async (req, res) => {
         // Busca el dispositivo por su ID en la base de datos
         const dispositivo = await Dispositivos.findById(dispositivoId);
         if (dispositivo) {
-            res.render('editar', { dispositivo });
+            let editarPageRoute = 'editar';
+
+            if (!['CPU', 'Laptop', 'Allinone'].includes(dispositivo.informacionArticulo.articulo)) {
+                editarPageRoute = 'editarnolap';
+            }
+
+            res.render(editarPageRoute, { dispositivo });
         } else {
             res.status(404).send('Dispositivo no encontrado');
         }
@@ -240,7 +269,6 @@ app.get('/editar/:dispositivoId', requireLogin, async (req, res) => {
         res.status(500).send('Error al obtener los detalles del dispositivo');
     }
 });
-
 
 app.post("/index", async (req, res) => {
     const { username, password } = req.body;
@@ -410,6 +438,44 @@ app.post('/guardar', async (req, res) => {
     }
 });
 
+app.post('/guardarnolap', async (req, res) => {
+    const { estado, actualizacion, fecha, encargado, id, articulo, marca, modelo, numeroSerie, departamentoResguardo, resguardante, usoPor, observaciones, recomendaciones } = req.body;
+
+    const dispositivo = new Dispositivos({
+        estadoEquipo: {
+            estado,
+            actualizacion,
+            fechaActualizacion: new Date(fecha),
+            encargado,
+        },
+        informacionArticulo: {
+            id,
+            articulo,
+            marca,
+            numeroSerie,
+            modelo,
+        },
+        informacionResguardo: {
+            departamentoResguardo,
+            resguardante,
+            usoPor,
+        },
+        anotaciones: {
+            observaciones,
+            recomendaciones,
+        }
+        // Completa con las demás propiedades del dispositivo
+    });
+
+    try {
+        await dispositivo.save();
+        res.redirect('/formsnolap');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al guardar los datos');
+    }
+});
+
 app.post('/actualizar/:dispositivoId', async (req, res) => {
     const dispositivoId = req.params.dispositivoId;
     const { estado, actualizacion, encargado, id, articulo, marca, modelo, numeroSerie, nombreEquipo, sistemaOperativo, version, tipoSistema, dominio, marcaProcesador, modeloProcesador, generacion, ghz, graficos, modeloGraficos, almacenamientoGB, tipoAlmacenamiento, marcaAlmacenamiento, tipoRam, velocidadRam, capacidadRam, ranurasUso, totalRam, marcaRam, modeloRam, departamentoResguardo, resguardante, usoPor, observaciones, recomendaciones } = req.body;
@@ -523,6 +589,77 @@ app.post('/actualizar/:dispositivoId', async (req, res) => {
     }
 });
 
+app.post('/actualizarnolap/:dispositivoId', async (req, res) => {
+    const dispositivoId = req.params.dispositivoId;
+    const { estado, actualizacion, encargado, id, articulo, marca, modelo, numeroSerie, departamentoResguardo, resguardante, usoPor, observaciones, recomendaciones } = req.body;
+
+    try {
+        const dispositivo = await Dispositivos.findById(dispositivoId);
+        if (!dispositivo) {
+            return res.status(404).send('Dispositivo no encontrado');
+        }
+
+        const cambios = [];
+
+        // Función para agregar cambios al historial
+        const agregarCambio = (propiedad, valorAnterior, valorNuevo) => {
+            if (valorAnterior !== valorNuevo) {
+                cambios.push({
+                    propiedad,
+                    valorAnterior,
+                    valorNuevo
+                });
+            }
+        };
+
+        agregarCambio('Estado', dispositivo.estadoEquipo.estado, estado);
+        agregarCambio('Actualización', dispositivo.estadoEquipo.actualizacion, actualizacion);
+        agregarCambio('Encargado', dispositivo.estadoEquipo.encargado, encargado);
+        agregarCambio('Id', dispositivo.informacionArticulo.id, id);
+        agregarCambio('Articulo', dispositivo.informacionArticulo.articulo, articulo);
+        agregarCambio('Marca', dispositivo.informacionArticulo.marca, marca);
+        agregarCambio('Modelo', dispositivo.informacionArticulo.modelo, modelo);
+        agregarCambio('Numero de serie', dispositivo.informacionArticulo.numeroSerie, numeroSerie);
+        agregarCambio('Departamento de resguardo', dispositivo.informacionResguardo.departamentoResguardo, departamentoResguardo);
+        agregarCambio('Resguardante', dispositivo.informacionResguardo.resguardante, resguardante);
+        agregarCambio('En uso por', dispositivo.informacionResguardo.usoPor, usoPor);
+        agregarCambio('Observaciones', dispositivo.anotaciones.observaciones, observaciones);
+        agregarCambio('Recomendaciones', dispositivo.anotaciones.recomendaciones, recomendaciones);
+
+        // Verifica si hay cambios antes de agregar al historial y guardar en la base de datos
+        if (cambios.length > 0) {
+            dispositivo.historial.push({
+                fecha: new Date(),
+                cambios
+            });
+
+            // Actualiza las propiedades del dispositivo
+            dispositivo.estadoEquipo.estado = estado;
+            dispositivo.estadoEquipo.actualizacion = actualizacion;
+            dispositivo.estadoEquipo.encargado = encargado;
+            dispositivo.informacionArticulo.id = id;
+            dispositivo.informacionArticulo.articulo = articulo;
+            dispositivo.informacionArticulo.marca = marca;
+            dispositivo.informacionArticulo.numeroSerie = numeroSerie;
+            dispositivo.informacionArticulo.modelo = modelo;
+            dispositivo.informacionResguardo.departamentoResguardo = departamentoResguardo;
+            dispositivo.informacionResguardo.resguardante = resguardante;
+            dispositivo.informacionResguardo.usoPor = usoPor;
+            dispositivo.anotaciones.observaciones = observaciones;
+            dispositivo.anotaciones.recomendaciones = recomendaciones;
+            // Actualiza otras propiedades
+
+            // Guarda el dispositivo actualizado en la base de datos
+            await dispositivo.save();
+        }
+
+        res.redirect('/inicio'); // Redirige a la página deseada después de la actualización
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al actualizar la información');
+    }
+});
+
 app.get('/search/:keyword', async (req, res) => {
     try {
         const keyword = req.params.keyword;
@@ -543,8 +680,6 @@ app.get('/search/:keyword', async (req, res) => {
         res.status(500).json({ error: 'Error al buscar dispositivos' });
     }
 });
-
-
 
 app.listen(port, () => {
     console.log(`Servidor en ejecución en http://localhost:${port}`);

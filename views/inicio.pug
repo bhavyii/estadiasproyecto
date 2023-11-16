@@ -8,20 +8,20 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='style/styles.css')
     title Seguimiento de dispositivos
-
+div.containergen
   body
     header
-      button#back.btn-back(type='button', onclick='location.href="/principal"')
-          img(src='img/back.png', alt='back')
-      .logo
-        img(src='img/uttnlogl.png', alt='Encabezado')
+      button#back.btn-back(type='button', onclick='history.back()')
+          img(src='img/back.webp', alt='back')
+      a(href='principal')
+        .logo
+          img(src='img/uttnlogl.webp', alt='Encabezado')
       button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') 
-        img(src='img/cerrarsesion.png', alt='back', style='height:30px')
+        img(src='img/cerrarsesion.webp', alt='back', style='height:30px')
     form(onsubmit='doSearch(); return false;', class='searchbarForm', style='text-align: center;')
-      div
-        input(type='text', class='searchbar', id='search_entry', placeholder='Departamento, Encargado, ID, Modelo.', style='width:500px; text-align: center')
-      div
-        input(type='submit', value='', class='primaryButton' style='width:500px; text-align: center')
+      div(style='display:flex; flex-flow:row wrap; justify-content:center')
+        input(type='text', class='searchbar', id='search_entry', placeholder='Departamento, Encargado, ID, Modelo.', style='width:500px;')
+        input(type='image', value='', class='primaryButton' style='width:30px;', src='img/buscar.webp')
     table.gris
       caption
           | Dispositivos registrados
@@ -32,9 +32,6 @@ html(lang='en')
               th Marca
               th Modelo
               th Resguardante
-              th
-              th
-              th
               th
               
           each dispositivo in dispositivos
@@ -47,18 +44,18 @@ html(lang='en')
                   td
                       a(href=`/detalles/${dispositivo._id}`)
                         button.btn.verde
-                          img(src='img/ver.png', alt='back', style='height:30px') 
-                  td
+                          img(src='img/ver.webp', alt='back', style='height:30px') 
+       
                       a(href=`/editar/${dispositivo._id}`)
                         button.btn.azul 
-                          img(src='img/editar.png', alt='back', style='height:30px')                         
-                  td 
+                          img(src='img/editar.webp', alt='back', style='height:30px')                         
+  
                       a(href=`/historial/${dispositivo._id}`)
                         button.btn.blanco
-                          img(src='img/historial.png', alt='back', style='height:30px')   
-                  td
+                          img(src='img/historial.webp', alt='back', style='height:30px')   
+
                       button.btn.rojo(onclick='borrarDispositivo("' + dispositivo._id + '")')
-                        img(src='img/borrar.png', alt='back', style='height:30px')
+                        img(src='img/borrar.webp', alt='back', style='height:30px')
 
     footer &copy; Universidad Tecnol&oacute;gica de Tamaulipas Norte - 2023
 
@@ -89,7 +86,7 @@ html(lang='en')
           const verButton = document.createElement('button');
           verButton.className = 'btn verde';
           const verImage = document.createElement('img');
-          verImage.src = 'img/ver.png';
+          verImage.src = 'img/ver.webp';
           verImage.alt = 'ver';
           verImage.style.height = '30px';
           verButton.appendChild(verImage);
@@ -102,7 +99,7 @@ html(lang='en')
           const editarButton = document.createElement('button');
           editarButton.className = 'btn azul';
           const editarImage = document.createElement('img');
-          editarImage.src = 'img/editar.png';
+          editarImage.src = 'img/editar.webp';
           editarImage.alt = 'editar';
           editarImage.style.height = '30px';
           editarButton.appendChild(editarImage);
@@ -115,7 +112,7 @@ html(lang='en')
           const historialButton = document.createElement('button');
           historialButton.className = 'btn blanco';
           const historialImage = document.createElement('img');
-          historialImage.src = 'img/historial.png';
+          historialImage.src = 'img/historial.webp';
           historialImage.alt = 'historial';
           historialImage.style.height = '30px';
           historialButton.appendChild(historialImage);
@@ -129,7 +126,7 @@ html(lang='en')
           borrarButton.className = 'btn rojo';
           borrarButton.onclick = () => borrarDispositivo(dispositivo._id);
           const borrarImage = document.createElement('img');
-          borrarImage.src = 'img/borrar.png';
+          borrarImage.src = 'img/borrar.webp';
           borrarImage.alt = 'borrar';
           borrarImage.style.height = '30px';
           borrarButton.appendChild(borrarImage);

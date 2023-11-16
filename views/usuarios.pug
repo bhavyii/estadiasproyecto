@@ -10,12 +10,13 @@ head
 
 body
     header
-        button#back.btn-back(type='button', onclick='location.href="/principal"')
-            img(src='img/back.png', alt='back')
-        .logo
-            img(src='../img/uttnlogl.png', alt='Encabezado')
+        button#back.btn-back(type='button', onclick='history.back()')
+            img(src='img/back.webp', alt='back')
+        a(href='principal')
+            .logo
+                img(src='../img/uttnlogl.webp', alt='Encabezado')
         button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') 
-          img(src='img/cerrarsesion.png', alt='back', style='height:30px')
+          img(src='img/cerrarsesion.webp', alt='back', style='height:30px')
 
     table.gris
         caption

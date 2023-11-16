@@ -10,7 +10,7 @@ body {
 
 .containergen {
   display: grid;
-  height: 100%;
+  min-height: 100%;
 }
 
 header {
@@ -154,16 +154,19 @@ table.gris tr:hover {
 
 .btn.verde {
   background-color: #91f195;
+  margin-right: 10px;
   color: white;
 }
 
 .btn.blanco {
   background-color: #ffffff;
+  margin-right: 10px;
   color: white;
 }
 
 .btn.azul {
   background-color: #3498db;
+  margin-right: 10px;
   color: white;
 }
 

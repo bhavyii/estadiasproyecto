@@ -14,7 +14,8 @@ html(lang='en')
         border: 2px solid #3498db;
         border-radius: 10px;
         overflow: hidden;
-        width: 800px;
+        width: auto;
+        height: auto;
         box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
         margin: 0 auto;
         margin-bottom: 50px;
@@ -35,12 +36,13 @@ html(lang='en')
   div.containergen
     body
       header
-        button#back.btn-back(type='button', onclick='location.href="/principal"')
-          img(src='img/back.png', alt='back')
-        .logo
-          img(src='img/uttnlogl.png', alt='Encabezado')
+        button#back.btn-back(type='button', onclick='history.back()')
+          img(src='img/back.webp', alt='back')
+        a(href='principal')
+          .logo
+            img(src='img/uttnlogl.webp', alt='Encabezado')
         button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"')
-          img(src='/img/cerrarsesion.png', style='height:30px')
+          img(src='/img/cerrarsesion.webp', style='height:30px')
     table#miTabla
         tr
             th#tituloTabla(colspan='2') Historial de Cambios

@@ -10,24 +10,23 @@ html(lang='en')
   body
    div.containergen
     header
-      .logo
-        img(src='img/uttnlogl.webp', alt='Encabezado')
+      button#back.btn-back(type='button', onclick='history.back()')
+          img(src='img/back.webp', alt='back') 
+      a(href='principal')
+        .logo
+          img(src='img/uttnlogl.webp', alt='Encabezado')
       button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"')
         img(src='img/cerrarsesion.webp', alt='back', style='height:30px') 
 
     main
       .card-container
         .card
-          a(href='/inicio')
-            img(src='img/dispositivos.webp', alt='Imagen 1')
-            p Seguimiento de dispositivos
+          a(href='/forms')
+            img(src='img/compu.webp', alt='Imagen 1')
+            p Computadoras, laptops, all in one
         .card
-          a(href='/menu')
-            img(src='img/ingresar.webp', alt='Imagen 2')
-            p Agregar dispositivos
-        .card
-          a(href='/usuarios')
-            img(src='img/usuarios.webp', alt='Imagen 3')
-            p Usuarios
+          a(href='/formsnolap')
+            img(src='img/otros.webp', alt='Imagen 2')
+            p Otros
 
     footer &copy; Universidad Tecnológica de Tamaulipas Norte - 2023

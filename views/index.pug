@@ -6,32 +6,33 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='style/styles.css')
     title Seguimiento de dispositivos
-  div.containergen    
     body
-      header
-        .logo
-          img(src='img/uttnlogl.png', alt='Encabezado')
-      h1 Inicio de Sesi&oacute;n
-      if error
-        #alerta(style='display: block; color: red; text-align: center;')
-          p= error
-        script.
-          setTimeout(function() {
-            document.getElementById('alerta').style.display = 'none';
-          }, 3000); // 3000 milisegundos = 3 segundos
-      else
-        #alerta(style='display: none;')
-          p Credenciales incorrectas. Por favor, inténtalo de nuevo.
-      form#login(action='/index', method='post')
-        label(for='username') Usuario:
-        input#username(type='text', name='username', required='')
-        br
-        label(for='password') Contrase&ntilde;a:
-        input#password(type='password', name='password', required='')
-        br
-        a(href='/principal')
-          button(type='submit') Iniciar Sesi&oacute;n
-      p
-        | &iquest;No tienes una cuenta? 
-        a(href='/register') Reg&iacute;strate aqu&iacute;
-      footer &copy; Universidad Tecnol&oacute;gica de Tamaulipas Norte - 2023
+      div.containergen    
+        header
+          .logo
+            img(src='img/uttnlogl.webp', alt='Encabezado')
+        div    
+          h1 Inicio de Sesi&oacute;n
+          if error
+            #alerta(style='display: block; color: red; text-align: center;')
+              p= error
+            script.
+              setTimeout(function() {
+                document.getElementById('alerta').style.display = 'none';
+              }, 3000); // 3000 milisegundos = 3 segundos
+          else
+            #alerta(style='display: none;')
+              p Credenciales incorrectas. Por favor, inténtalo de nuevo.
+          form#login(action='/index', method='post')
+            label(for='username') Usuario:
+            input#username(type='text', name='username', required='')
+            br
+            label(for='password') Contrase&ntilde;a:
+            input#password(type='password', name='password', required='')
+            br
+            a(href='/principal')
+              button(type='submit') Iniciar Sesi&oacute;n
+          p
+            | &iquest;No tienes una cuenta? 
+            a(href='/register') Reg&iacute;strate aqu&iacute;
+        footer &copy; Universidad Tecnol&oacute;gica de Tamaulipas Norte - 2023
