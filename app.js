@@ -198,6 +198,27 @@ app.get('/historial', requireLogin, (req, res) => {
     res.render('historial');
 });
 
+app.get('/historialdetodo', requireLogin, async (req, res) => {
+    try {
+        const dispositivos = await Dispositivos.find();
+        if (dispositivos && dispositivos.length > 0) {
+            // Ordenar los cambios de más nuevo a más viejo
+            dispositivos.forEach(dispositivo => {
+                if (dispositivo.historial) {
+                    dispositivo.historial.sort((a, b) => b.fecha - a.fecha);
+                }
+            });
+            res.render('historialdetodo', { dispositivos });
+        } else {
+            res.status(404).send('Dispositivo no encontrado');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al obtener el historial del dispositivo');
+    }
+});
+
+
 app.get('/cerrar-sesion', (req, res) => {
     req.session.destroy((err) => {
         if (err) {

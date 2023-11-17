@@ -1,0 +1,62 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    base(href='/inicio')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='style/styles.css')
+    title Seguimiento de dispositivos
+    style.
+
+        table#miTabla {
+        border-collapse: collapse;
+        border: 2px solid #3498db;
+        border-radius: 10px;
+        overflow: hidden;
+        width: auto;
+        height: auto;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        margin: 0 auto;
+        margin-bottom: 50px;
+        }
+        th#tituloTabla {
+        background-color: #1ab192;
+        color: white;
+        text-align: center;
+        }
+        th, td {
+        border: 1px solid #1ab192;
+        padding: 10px 20px;
+        text-align: justify;
+        }
+        tr:nth-child(even) {
+        background-color: #f2f2f2;
+        }
+  div.containergen
+    body
+      header
+        button#back.btn-back(type='button', onclick='history.back()')
+          img(src='img/back.webp', alt='back')
+        a(href='principal')
+          .logo
+            img(src='img/uttnlogl.webp', alt='Encabezado')
+        button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"')
+          img(src='/img/cerrarsesion.webp', style='height:30px')
+    table#miTabla
+        tr
+            th#tituloTabla(colspan='4') Historial de todos los dispositivos
+        each dispositivo in dispositivos
+            each cambio in dispositivo.historial || []
+                tr
+                    th(colspan='4') 
+                        | Dispositivo: #{dispositivo.informacionArticulo.id}, #{dispositivo.informacionArticulo.articulo}
+                tr
+                    th Fecha: #{cambio.fecha.toLocaleString()}
+                    td(colspan='3')
+                        each detalle in cambio.cambios
+                            li #{detalle.propiedad}: #{detalle.valorAnterior} -> #{detalle.valorNuevo}
+                tr
+                    td(colspan='4') &nbsp;
+
+    footer &copy; Universidad Tecnológica de Tamaulipas Norte - 2023

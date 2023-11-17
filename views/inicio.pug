@@ -20,8 +20,9 @@ div.containergen
         img(src='img/cerrarsesion.webp', alt='back', style='height:30px')
     form(onsubmit='doSearch(); return false;', class='searchbarForm', style='text-align: center;')
       div(style='display:flex; flex-flow:row wrap; justify-content:center')
-        input(type='text', class='searchbar', id='search_entry', placeholder='Departamento, Encargado, ID, Modelo.', style='width:500px;')
-        input(type='image', value='', class='primaryButton' style='width:30px;', src='img/buscar.webp')
+        input(type='text', class='searchbar', id='search_entry', placeholder='ID, Articulo, Modelo, Marca o Resguardante.', style='width:500px;')
+        input(type='image', value='', class='primaryButton' style='margin-left:10px; width:30px;', src='img/buscar.webp')
+        input(type='image', src='img/historia.webp', style='margin-left:10px; width:30px', onclick='location.href="/historialdetodo"')
     table.gris
       caption
           | Dispositivos registrados
