@@ -17,12 +17,12 @@ div.containergen
         .logo
           img(src='img/uttnlogl.webp', alt='Encabezado')
       button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"') 
-        img(src='img/cerrarsesion.webp', alt='back', style='height:30px')
+        img(src='img/cerrarsesion.webp', alt='back', style='height:30px', title='Cerrar sesión')
     form(onsubmit='doSearch(); return false;', class='searchbarForm', style='text-align: center;')
       div(style='display:flex; flex-flow:row wrap; justify-content:center')
         input(type='text', class='searchbar', id='search_entry', placeholder='ID, Articulo, Modelo, Marca o Resguardante.', style='width:500px;')
-        input(type='image', value='', class='primaryButton' style='margin-left:10px; width:30px;', src='img/buscar.webp')
-        input(type='image', src='img/historia.webp', style='margin-left:10px; width:30px', onclick='location.href="/historialdetodo"')
+        input(type='image', value='', class='primaryButton' style='margin-left:10px; width:30px;', src='img/buscar.webp', title='Buscar')
+        input(type='image', src='img/historia.webp', style='margin-left:10px; width:30px', onclick='location.href="/historialdetodo"', title='Historial')
     table.gris
       caption
           | Dispositivos registrados
@@ -45,17 +45,17 @@ div.containergen
                   td
                       a(href=`/detalles/${dispositivo._id}`)
                         button.btn.verde
-                          img(src='img/ver.webp', alt='back', style='height:30px') 
+                          img(src='img/ver.webp', alt='back', style='height:30px', title='Ver') 
        
                       a(href=`/editar/${dispositivo._id}`)
                         button.btn.azul 
-                          img(src='img/editar.webp', alt='back', style='height:30px')                         
+                          img(src='img/editar.webp', alt='back', style='height:30px', title='Editar')                         
   
                       a(href=`/historial/${dispositivo._id}`)
                         button.btn.blanco
-                          img(src='img/historial.webp', alt='back', style='height:30px')   
+                          img(src='img/historial.webp', alt='back', style='height:30px', title='Historial del dispositivo')   
 
-                      button.btn.rojo(onclick='borrarDispositivo("' + dispositivo._id + '")')
+                      button.btn.rojo(onclick='borrarDispositivo("' + dispositivo._id + '")', title='Borrar')
                         img(src='img/borrar.webp', alt='back', style='height:30px')
 
     footer &copy; Universidad Tecnol&oacute;gica de Tamaulipas Norte - 2023
