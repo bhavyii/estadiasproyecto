@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const express = require('express');
 const session = require('express-session');
+const ExcelJS = require('exceljs');
 
 const app = express();
 
@@ -134,6 +135,162 @@ function requireLogin(req, res, next) {
 app.get("/", (req, res) => {
     res.render("index");
 });
+
+app.get('/exportar-excel', requireLogin, async (req, res) => {
+    try {
+        const dispositivos = await Dispositivos.find();
+
+        if (!dispositivos || dispositivos.length === 0) {
+            return res.status(404).send('No hay dispositivos para exportar');
+        }
+
+        const workbook = new ExcelJS.Workbook();
+        const sheet = workbook.addWorksheet('Dispositivos');
+
+        // Encabezados
+        const colParams = [
+            'Estado', 'Actualizacion', 'Fecha', 'Encargado',
+            'ID', 'Articulo', 'Marca', 'Modelo', 'S/N', 'Tiempo de Vida',
+            'Nombre', 'Sistema Operativo', 'Version', 'Tipo', 'Dominio',
+            'Marca', 'Modelo', 'Generacion', 'GHz', 'Graficos',
+            'Modelo', 'Cantidad', 'Tipo', 'Marca',
+            'Tipo', 'Velocidad', 'Capacidad', 'Ranuras', 'Total',
+            'Marca', 'Modelo', 'Departamento', 'Resguardo', 'En uso por'
+        ];
+
+        const getColumnLabel = (index) => {
+            let label = '';
+            while (index >= 0) {
+                label = String.fromCharCode(65 + (index % 26)) + label;
+                index = Math.floor(index / 26) - 1;
+            }
+            return label;
+        }
+
+        colParams.forEach((param, index) => {
+            let columnLabel = getColumnLabel(index);
+            let cellReference = columnLabel + '1';
+
+            sheet.getCell(cellReference).value = param;
+            sheet.getCell(cellReference).alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+            sheet.getCell(cellReference).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '000000' } };
+            sheet.getCell(cellReference).font = { color: { argb: "ffffff" } }
+            sheet.getCell(cellReference).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, color: { argb: 'ffffff' } }
+        });
+
+        sheet.columns = [
+            // Estado
+            { key: 'estado' },
+            { key: 'actualizacion' },
+            { key: 'fechaActualizacion' },
+            { key: 'encargado' },
+            // Articulo
+            { key: 'id' },
+            { key: 'articulo' },
+            { key: 'marca' },
+            { key: 'modelo' },
+            { key: 'numeroSerie' },
+            { key: 'tiempoVida' },
+            // Sistema
+            { key: 'nombreEquipo' },
+            { key: 'sistemaOperativo' },
+            { key: 'version' },
+            { key: 'tipoSistema' },
+            { key: 'dominio' },
+            // Procesador
+            { key: 'marcaProcesador' },
+            { key: 'modeloProcesador' },
+            { key: 'generacion' },
+            { key: 'ghz' },
+            { key: 'graficos' },
+            { key: 'modeloGraficos' },
+            // Almacenamiento
+            { key: 'almacenamientoGB' },
+            { key: 'tipoAlmacenamiento' },
+            { key: 'marcaAlmacenamiento' },
+            // RAM
+            { key: 'tipoRam' },
+            { key: 'velocidadRam' },
+            { key: 'capacidadRam' },
+            { key: 'ranurasUso' },
+            { key: 'totalRam' },
+            { key: 'marcaRam' },
+            { key: 'modeloRam' },
+            // Resguardo
+            { key: 'departamentoResguardo' },
+            { key: 'resguardante' },
+            { key: 'usoPor' },
+        ];
+
+        dispositivos.forEach((device, index) => {
+            // Insertar filas
+            sheet.addRow({
+                // Estado
+                estado: device.estadoEquipo.estado,
+                actualizacion: device.estadoEquipo.actualizacion,
+                fechaActualizacion: device.estadoEquipo.fechaActualizacion,
+                encargado: device.estadoEquipo.encargado,
+                // Articulo
+                id: device.informacionArticulo.id,
+                articulo: device.informacionArticulo.articulo,
+                marca: device.informacionArticulo.marca,
+                modelo: device.informacionArticulo.modelo,
+                numeroSerie: device.informacionArticulo.numeroSerie,
+                tiempoVida: device.informacionArticulo.tiempoVida,
+                // Sistema
+                nombreEquipo: device.informacionSistema.nombreEquipo,
+                sistemaOperativo: device.informacionSistema.sistemaOperativo,
+                version: device.informacionSistema.version,
+                tipoSistema: device.informacionSistema.tipoSistema,
+                dominio: device.informacionSistema.dominio,
+                // Procesador
+                marcaProcesador: device.informacionProcesador.marcaProcesador,
+                modeloProcesador: device.informacionProcesador.modeloProcesador,
+                generacion: device.informacionProcesador.generacion,
+                ghz: device.informacionProcesador.ghz,
+                graficos: device.informacionProcesador.graficos,
+                modeloGraficos: device.informacionProcesador.modeloGraficos,
+                // Almacenamiento
+                almacenamientoGB: device.informacionAlmacenamiento.almacenamientoGB,
+                tipoAlmacenamiento: device.informacionAlmacenamiento.tipoAlmacenamiento,
+                marcaAlmacenamiento: device.informacionAlmacenamiento.marcaAlmacenamiento,
+                // RAM
+                tipoRam: device.informacionRam.tipoRam,
+                velocidadRam: device.informacionRam.velocidadRam,
+                capacidadRam: device.informacionRam.capacidadRam,
+                ranurasUso: device.informacionRam.ranurasUso,
+                totalRam: device.informacionRam.totalRam,
+                marcaRam: device.informacionRam.marcaRam,
+                modeloRam: device.informacionRam.modeloRam,
+                // Resguardo
+                departamentoResguardo: device.informacionResguardo.departamentoResguardo,
+                resguardante: device.informacionResguardo.resguardante,
+                usoPor: device.informacionResguardo.usoPor,
+            }).alignment = {
+                horizontal: 'center',
+                vertical: 'middle',
+            };
+
+            // Establecer el formato de fecha en las celdas correspondientes
+            sheet.getCell(`C${index + 3}`).numFmt = 'mm/dd/yyyy';
+        });
+
+        // Configurar la respuesta HTTP
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'attachment; filename=dispositivos.xlsx');
+
+        // Escribir el archivo Excel en la respuesta HTTP
+        await workbook.xlsx.write(res);
+
+        // Finalizar la respuesta
+        res.end();
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al exportar a Excel');
+    }
+});
+
+
 
 app.get("/index", (req, res) => {
     const error = req.query.error;

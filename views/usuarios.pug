@@ -8,46 +8,47 @@ head
     link(rel='stylesheet', href='../style/styles.css')
     title Seguimiento de dispositivos
 
-body
-    header
-        button#back.btn-back(type='button', onclick='history.back()')
-            img(src='img/back.webp', alt='back')
-        a(href='principal')
-            .logo
-                img(src='../img/uttnlogl.webp', alt='Encabezado')
-        button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"', title='Cerrar sesión') 
-          img(src='img/cerrarsesion.webp', alt='back', style='height:30px')
+div.containergen
+    body
+        header
+            button#back.btn-back(type='button', onclick='history.back()')
+                img(src='img/back.webp', alt='back')
+            a(href='principal')
+                .logo
+                    img(src='../img/uttnlogl.webp', alt='Encabezado')
+            button#cerrar-sesion.btn-cerrar-sesion(type='button', onclick='location.href="/cerrar-sesion"', title='Cerrar sesión') 
+                img(src='img/cerrarsesion.webp', alt='back', style='height:30px')
 
-    table.gris
-        caption
-            | Usuarios registrados
-        tbody
-            tr
-                th Nombre de Usuario
-                th Nombre
-                th Apellido Paterno
-                th Apellido Materno
-                th Email
-                th
-                th
-                th
-
-            //- Aquí comienza el foreach para mostrar los usuarios
-            each user in usuarios
+        table.gris
+            caption
+                | Usuarios registrados
+            tbody
                 tr
-                    td= user.username
-                    td= user.nombre
-                    td= user.apellidoPaterno
-                    td= user.apellidoMaterno
-                    td= user.correo
-                    td
-                        button.btn.verde Ver
-                    td
-                        button.btn.azul Editar
-                    td
-                        button.btn.rojo(onclick='borrarUsuario("' + user._id + '")') Borrar
+                    th Nombre de Usuario
+                    th Nombre
+                    th Apellido Paterno
+                    th Apellido Materno
+                    th Email
+                    th
+                    th
+                    th
 
-footer &copy; Universidad Tecnológica de Tamaulipas Norte - 2023
+                //- Aquí comienza el foreach para mostrar los usuarios
+                each user in usuarios
+                    tr
+                        td= user.username
+                        td= user.nombre
+                        td= user.apellidoPaterno
+                        td= user.apellidoMaterno
+                        td= user.correo
+                        td
+                            button.btn.verde Ver
+                        td
+                            button.btn.azul Editar
+                        td
+                            button.btn.rojo(onclick='borrarUsuario("' + user._id + '")') Borrar
+
+    footer &copy; Universidad Tecnológica de Tamaulipas Norte - 2023
 
 script.
     function borrarUsuario(userId) {
