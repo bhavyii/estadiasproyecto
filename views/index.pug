@@ -24,8 +24,8 @@ html(lang='en')
             #alerta(style='display: none;')
               p Credenciales incorrectas. Por favor, inténtalo de nuevo.
           form#login(action='/index', method='post')
-            label(for='username') Usuario:
-            input#username(type='text', name='username', required='')
+            label(for='correo') Correo:
+            input#correo(type='text', name='correo', required='')
             br
             label(for='password') Contrase&ntilde;a:
             input#password(type='password', name='password', required='')
@@ -35,4 +35,7 @@ html(lang='en')
           p
             | &iquest;No tienes una cuenta? 
             a(href='/register') Reg&iacute;strate aqu&iacute;
+          p
+            | &iquest;Olvidaste tu contraseña? 
+            a(href='/reset-password') Cambiala aquí
         footer &copy; Universidad Tecnol&oacute;gica de Tamaulipas Norte - 2023

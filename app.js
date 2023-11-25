@@ -43,6 +43,8 @@ const usuariosSchema = new mongoose.Schema({
     apellidoMaterno: { type: String, default: "" },
     correo: { type: String, default: "" },
     nombre: { type: String, default: "" },
+    resetToken: { type: String },
+    resetTokenExpiry: { type: Date },
 });
 
 const historialSchema = new mongoose.Schema({
@@ -134,6 +136,10 @@ function requireLogin(req, res, next) {
 
 app.get("/", (req, res) => {
     res.render("index");
+});
+
+app.get("/reset-password", (req, res) => {
+    res.render("reset-password");
 });
 
 app.get('/exportar-excel', requireLogin, async (req, res) => {
@@ -290,7 +296,26 @@ app.get('/exportar-excel', requireLogin, async (req, res) => {
     }
 });
 
+app.post('/reset-password', async (req, res) => {
+    const { correo, password } = req.body;
 
+    try {
+        const usuario = await Usuarios.findOne({ correo });
+
+        if (!usuario) {
+            return res.render('reset-password', { error: 'Correo no encontrado' });
+        }
+
+        // Actualiza la contraseña en la base de datos
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await Usuarios.findByIdAndUpdate(usuario._id, { password: hashedPassword });
+
+        res.redirect('/index?success=Contraseña restablecida con éxito');
+    } catch (error) {
+        console.error('Error al restablecer la contraseña:', error);
+        res.render('reset-password', { error: 'Error en el servidor' });
+    }
+});
 
 app.get("/index", (req, res) => {
     const error = req.query.error;
@@ -449,10 +474,10 @@ app.get('/editar/:dispositivoId', requireLogin, async (req, res) => {
 });
 
 app.post("/index", async (req, res) => {
-    const { username, password } = req.body;
+    const { correo, password } = req.body;
 
     try {
-        const usuario = await Usuarios.findOne({ username });
+        const usuario = await Usuarios.findOne({ correo });
 
         if (usuario) {
             bcrypt.compare(password, usuario.password, (err, result) => {
@@ -469,7 +494,7 @@ app.post("/index", async (req, res) => {
                 }
             });
         } else {
-            res.redirect("/index?error=Usuario no encontrado");
+            res.redirect("/index?error=Correo no encontrado");
         }
     } catch (error) {
         console.error("Error en el inicio de sesión:", error);
@@ -477,6 +502,7 @@ app.post("/index", async (req, res) => {
         res.status(500).send("Error en el servidor");
     }
 });
+
 
 app.post("/register", async (req, res) => {
     const { newUsername, password, apellidoPaterno, apellidoMaterno, nombre, correo } = req.body;
