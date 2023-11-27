@@ -274,6 +274,7 @@ caption {
   padding: 10px; /* Ajusta este valor según tus necesidades */
   display: flex;
   align-items: center;
+  cursor: pointer;
   justify-content: center;
 }
 

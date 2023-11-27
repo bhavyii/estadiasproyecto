@@ -92,9 +92,9 @@ html(lang="en")
             div.tab#tab8 Anotaciones     
           div.tab-content.active#content1
             label(for="id") ID:
-            input#id(type="text" name="id")
+            input#id(type="text" name="id" required)
             label(for="articulo") Artículo:
-            select#articulo(name="articulo")
+            select#articulo(name="articulo" required)
               option(value="Seleccionar el articulo") Seleccionar Articulo
               option(value="CPU") CPU
               option(value="Laptop") Laptop
@@ -102,7 +102,7 @@ html(lang="en")
             label(for="marca") Marca:
             input#marca(type="text" name="marca")
             label(for="modelo") Modelo:
-            input#modelo(type="text" name="modelo")
+            input#modelo(type="text" name="modelo" required)
             label(for="numeroSerie") Número de Serie:
             input#numeroSerie(type="text" name="numeroSerie")
           div.tab-content#content2
@@ -126,7 +126,7 @@ html(lang="en")
               input#encargado(type="text" name="encargado")
           div.tab-content#content3
             label(for="nombreEquipo") Nombre del Equipo:
-            input#nombreEquipo(type="text" name="nombreEquipo")
+            input#nombreEquipo(type="text" name="nombreEquipo" required)
             label(for="sistemaOperativo") Sistema Operativo:
             input#sistemaOperativo(type="text" name="sistemaOperativo")
             label(for="version") Versión:
@@ -141,12 +141,12 @@ html(lang="en")
               option(value="uttn.edu.mx") uttn.edu.mx
           div.tab-content#content4
             label(for="marcaProcesador") Marca del Procesador:
-            select#marcaProcesador(name="marcaProcesador")
+            select#marcaProcesador(name="marcaProcesador" required)
               option(value="Seleccionar procesador") Seleccionar Procesador
               option(value="Intel") Intel
               option(value="AMD") AMD
             label(for="modeloProcesador") Modelo del Procesador:
-            input#modeloProcesador(type="text" name="modeloProcesador")
+            input#modeloProcesador(type="text" name="modeloProcesador" required)
             label(for="generacion") Generación:
             input#generacion(type="text" name="generacion")
             label(for="ghz") GHz:
@@ -157,9 +157,9 @@ html(lang="en")
             input#modeloGraficos(type="text" name="modeloGraficos")
           div.tab-content#content5
             label(for="almacenamientoGB") Espacio de almacenamiento:
-            input#almacenamientoGB(type="text" name="almacenamientoGB")
+            input#almacenamientoGB(type="text" name="almacenamientoGB" required)
             label(for="tipoAlmacenamiento") Tipo de Almacenamiento:
-            select#tipoAlmacenamiento(name="tipoAlmacenamiento")
+            select#tipoAlmacenamiento(name="tipoAlmacenamiento" required)
               option(value="Seleccionar tipo de almacenamiento") Seleccionar Tipo De Almacenamiento
               option(value="HDD") HDD
               option(value="SSD") SSD
@@ -167,7 +167,7 @@ html(lang="en")
             input#marcaAlmacenamiento(type="text" name="marcaAlmacenamiento")
           div.tab-content#content6
             label(for="tipoRam") Tipo de RAM:
-            input#tipoRam(type="text" name="tipoRam")
+            input#tipoRam(type="text" name="tipoRam" required)
             label(for="velocidadRam") Velocidad de la RAM (MHz):
             input#velocidadRam(type="text" name="velocidadRam")
             label(for="capacidadRam") Capacidad de la RAM (GB):
@@ -175,14 +175,14 @@ html(lang="en")
             label(for="ranurasUso") Ranuras en Uso:
             input#ranurasUso(type="text" name="ranurasUso")
             label(for="totalRam") Total de RAM (GB):
-            input#totalRam(type="text" name="totalRam")
+            input#totalRam(type="text" name="totalRam" required)
             label(for="marcaRam") Marca de la RAM:
             input#marcaRam(type="text" name="marcaRam")
             label(for="modeloRam") Modelo de la RAM:
             input#modeloRam(type="text" name="modeloRam")
           div.tab-content#content7
             label(for="departamentoResguardo") Departamento de Resguardo:
-            select#departamentoResguardo(name="departamentoResguardo")
+            select#departamentoResguardo(name="departamentoResguardo" required)
               option(value="Seleccionar Departamento") Seleccionar Departamento
               option(value="Tecnologías de la Información") Tecnologías de la Información
               option(value="Procesos Industriales") Procesos Industriales
