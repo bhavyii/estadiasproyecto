@@ -28,9 +28,6 @@ div.containergen
                     th Nombre
                     th Apellido Paterno
                     th Apellido Materno
-                    th Email
-                    th
-                    th
                     th
 
                 //- Aquí comienza el foreach para mostrar los usuarios
@@ -40,11 +37,6 @@ div.containergen
                         td= user.nombre
                         td= user.apellidoPaterno
                         td= user.apellidoMaterno
-                        td= user.correo
-                        td
-                            button.btn.verde Ver
-                        td
-                            button.btn.azul Editar
                         td
                             button.btn.rojo(onclick='borrarUsuario("' + user._id + '")') Borrar
 

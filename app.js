@@ -152,6 +152,12 @@ app.get('/exportar-excel', requireLogin, async (req, res) => {
 
         const workbook = new ExcelJS.Workbook();
         const sheet = workbook.addWorksheet('Dispositivos');
+        sheet.properties = {
+            defaultRowHeight: 52.5,
+            defaultColWidth: 15,
+            horizontal: 'center',
+            vertical: 'middle',
+          }
 
         // Encabezados
         const colParams = [
@@ -173,9 +179,43 @@ app.get('/exportar-excel', requireLogin, async (req, res) => {
             return label;
         }
 
+        sheet.mergeCells('A1:D1');
+    sheet.getCell('A1').value = 'EQUIPO';
+    sheet.getCell('A1').alignment = { horizontal: 'center', vertical: 'middle' };
+
+    // Informacion del articulo
+    sheet.mergeCells('E1:J1');
+    sheet.getCell('E1').value = 'ARTICULO';
+    sheet.getCell('E1').alignment = { horizontal: 'center', vertical: 'middle'  };
+
+    // Informacion del sistema
+    sheet.mergeCells('K1:O1');
+    sheet.getCell('K1').value = 'SISTEMA';
+    sheet.getCell('K1').alignment = { horizontal: 'center', vertical: 'middle'  };
+    
+    // Informacion del procesador
+    sheet.mergeCells('P1:U1');
+    sheet.getCell('P1').value = 'PROCESADOR';
+    sheet.getCell('P1').alignment = { horizontal: 'center', vertical: 'middle'  };
+
+    // Informacion del almacenamiento
+    sheet.mergeCells('V1:X1');
+    sheet.getCell('W1').value = 'ALMACENAMIENTO';
+    sheet.getCell('W1').alignment = { horizontal: 'center', vertical: 'middle'  };
+
+    // Informacion de memoria RAM
+    sheet.mergeCells('Y1:AE1');
+    sheet.getCell('Z1').value = 'RAM';
+    sheet.getCell('Z1').alignment = { horizontal: 'center', vertical: 'middle'  };
+
+    // Informacion de resguardo
+    sheet.mergeCells('AF1:AH1');
+    sheet.getCell('AG1').value = 'RESGUARDO';
+    sheet.getCell('AG1').alignment = { horizontal: 'center', vertical: 'middle'  };
+
         colParams.forEach((param, index) => {
             let columnLabel = getColumnLabel(index);
-            let cellReference = columnLabel + '1';
+            let cellReference = columnLabel + '2';
 
             sheet.getCell(cellReference).value = param;
             sheet.getCell(cellReference).alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
