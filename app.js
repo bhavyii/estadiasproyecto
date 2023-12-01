@@ -5,7 +5,7 @@ const port = 3000;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const express = require('express');
-const session = require('express-session');
+export const session = require('express-session');
 const ExcelJS = require('exceljs');
 
 const app = express();
@@ -122,8 +122,10 @@ app.use((req, res, next) => {
     next();
 });
 
+export const usuarioSesion = req.session && req.session.usuario;
+
 function requireLogin(req, res, next) {
-    if (req.session && req.session.usuario) {
+    if (usuarioSesion) {
         // Si la sesión de usuario existe, continúa
         next();
     } else {
@@ -928,3 +930,17 @@ app.get('/search/:keyword', async (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor en ejecución en http://localhost:${port}`);
 });
+
+// Daryl API
+
+const userRoutes = require("./src/routes/user");
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    next();
+  });
+  app.use(express.json());
+  app.use("/api", userRoutes);
+
