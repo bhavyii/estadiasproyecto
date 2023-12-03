@@ -5,7 +5,7 @@ const port = 3000;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const express = require('express');
-export const session = require('express-session');
+const session = require('express-session');
 const ExcelJS = require('exceljs');
 
 const app = express();
@@ -110,7 +110,7 @@ const dispositivosSchema = new mongoose.Schema({
         recomendaciones: { type: String, default: "Sin recomendaciones" },
     },
     historial: [historialSchema]
-})
+});
 
 const Dispositivos = mongoose.model("Dispositivos", dispositivosSchema);
 const Usuarios = mongoose.model("Usuarios", usuariosSchema);
@@ -122,10 +122,8 @@ app.use((req, res, next) => {
     next();
 });
 
-export const usuarioSesion = req.session && req.session.usuario;
-
 function requireLogin(req, res, next) {
-    if (usuarioSesion) {
+    if (req.session && req.session.usuario) {
         // Si la sesión de usuario existe, continúa
         next();
     } else {
