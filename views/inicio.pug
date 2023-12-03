@@ -21,9 +21,10 @@ div.containergen
     form(onsubmit='doSearch(); return false;', class='searchbarForm', style='text-align: center;')
       div(style='display:flex; flex-flow:row wrap; justify-content:center')
         input(type='text', class='searchbar', id='search_entry', placeholder='ID, Articulo, Modelo, Marca o Resguardante.', style='width:500px;')
-        input(type='image', value='', class='primaryButton' style='margin-left:10px; width:30px;', src='img/buscar.webp', title='Buscar')
+        input(type='image', value='', class='primaryButton', style='margin-left:10px; width:30px;', src='img/buscar.webp', title='Buscar', onclick='doSearch()')
+        input(type='image', src='img/excel.webp', style='margin-left:10px; width:30px', onclick='exportToExcel()', title='Exportar a excel')
         input(type='image', src='img/historia.webp', style='margin-left:10px; width:30px', onclick='location.href="/historialdetodo"', title='Historial')
-        input(type='image', src='img/excel.webp', style='margin-left:10px; width:30px', onclick='location.href="/exportar-excel"', title='Historial')
+        input(type='image', src='img/agregar.webp', style='margin-left:10px; width:30px', onclick='location.href="/menu"', title='Agregar dispositivos')
     table.gris
       caption
           | Dispositivos registrados
@@ -67,7 +68,6 @@ div.containergen
         const entry = document.getElementById('search_entry').value;
         const response = await fetch(`/search/${entry}`);
         const data = await response.json();
-
         const tableBody = document.querySelector('table.gris tbody');
         tableBody.innerHTML = '';
 
@@ -138,6 +138,32 @@ div.containergen
         console.error('Error al realizar la búsqueda:', error);
       }
     };
+
+    const exportToExcel = async () => {
+        try {
+            const entry = document.getElementById('search_entry').value;
+
+            // Si no hay un término de búsqueda, realiza la exportación estándar
+            if (entry.trim() === '') {
+                const downloadLink = document.createElement('a');
+                downloadLink.href = '/exportar-excel';
+                downloadLink.click();
+                return;
+            }
+
+            // Si hay un término de búsqueda, realiza la búsqueda antes de exportar
+            await doSearch();
+
+            // Redirige a la exportación con el término de búsqueda
+            const searchURL = `/exportar-excel?keyword=${encodeURIComponent(entry)}`;
+            const downloadLink = document.createElement('a');
+            downloadLink.href = searchURL;
+            downloadLink.click();
+        } catch (error) {
+            console.error('Error al exportar a Excel:', error);
+        }
+    };
+
 
 script.
     function borrarDispositivo(dispositivoId) {

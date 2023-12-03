@@ -110,7 +110,7 @@ const dispositivosSchema = new mongoose.Schema({
         recomendaciones: { type: String, default: "Sin recomendaciones" },
     },
     historial: [historialSchema]
-})
+});
 
 const Dispositivos = mongoose.model("Dispositivos", dispositivosSchema);
 const Usuarios = mongoose.model("Usuarios", usuariosSchema);
@@ -144,9 +144,27 @@ app.get("/reset-password", (req, res) => {
 
 app.get('/exportar-excel', requireLogin, async (req, res) => {
     try {
-        const dispositivos = await Dispositivos.find();
+        const keyword = req.query.keyword; // Obtener el término de búsqueda desde la consulta
 
-        if (!dispositivos || dispositivos.length === 0) {
+        let data;
+        if (keyword) {
+            // Si hay un término de búsqueda, buscar dispositivos que coincidan
+            data = await Dispositivos.find({
+                $or: [
+                    { 'informacionResguardo.resguardante': { $regex: keyword, $options: 'i' } },
+                    { 'informacionArticulo.modelo': { $regex: keyword, $options: 'i' } },
+                    { 'informacionArticulo.articulo': { $regex: keyword, $options: 'i' } },
+                    { 'informacionArticulo.marca': { $regex: keyword, $options: 'i' } },
+                    { 'informacionArticulo.id': { $regex: keyword, $options: 'i' } },
+                    // Agrega más condiciones según sea necesario
+                ]
+            });
+        } else {
+            // Si no hay término de búsqueda, obtener todos los dispositivos
+            data = await Dispositivos.find();
+        }
+
+        if (!data || data.length === 0) {
             return res.status(404).send('No hay dispositivos para exportar');
         }
 
@@ -179,7 +197,7 @@ app.get('/exportar-excel', requireLogin, async (req, res) => {
             return label;
         }
 
-        sheet.mergeCells('A1:D1');
+    sheet.mergeCells('A1:D1');
     sheet.getCell('A1').value = 'EQUIPO';
     sheet.getCell('A1').alignment = { horizontal: 'center', vertical: 'middle' };
 
@@ -219,7 +237,7 @@ app.get('/exportar-excel', requireLogin, async (req, res) => {
 
             sheet.getCell(cellReference).value = param;
             sheet.getCell(cellReference).alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
-            sheet.getCell(cellReference).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '000000' } };
+            sheet.getCell(cellReference).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '1ab192' } };
             sheet.getCell(cellReference).font = { color: { argb: "ffffff" } }
             sheet.getCell(cellReference).border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }, color: { argb: 'ffffff' } }
         });
@@ -268,7 +286,7 @@ app.get('/exportar-excel', requireLogin, async (req, res) => {
             { key: 'usoPor' },
         ];
 
-        dispositivos.forEach((device, index) => {
+        data.forEach((device, index) => {
             // Insertar filas
             sheet.addRow({
                 // Estado
@@ -928,3 +946,17 @@ app.get('/search/:keyword', async (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor en ejecución en http://localhost:${port}`);
 });
+
+// Daryl API
+
+const userRoutes = require("./src/routes/user");
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    next();
+  });
+  app.use(express.json());
+  app.use("/api", userRoutes);
+
