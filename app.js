@@ -693,7 +693,7 @@ app.post('/guardar', async (req, res) => {
 
     try {
         await dispositivo.save();
-        res.redirect('/forms');
+        res.redirect('/inicio');
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al guardar los datos');
@@ -731,7 +731,7 @@ app.post('/guardarnolap', async (req, res) => {
 
     try {
         await dispositivo.save();
-        res.redirect('/formsnolap');
+        res.redirect('/inicio');
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al guardar los datos');
