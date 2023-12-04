@@ -1,10 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 
 export const Header = () => {
   return (
     <header className="nav-bar">
-      <form className="div1"></form>
+      <div className="div1">
+        <Link to={"http://localhost:3000/"}>
+          <img src="../icons/back.png" alt="asd" />
+        </Link>
+      </div>
       <div className="div2">
         <div className="logo">
           <Link to={"/"}>
