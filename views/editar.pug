@@ -232,6 +232,7 @@ html(lang="en")
               option(value="Administrativo", selected=dispositivo.informacionResguardo.usoPor === "Administrativo") Administrativo
               option(value="Docente", selected=dispositivo.informacionResguardo.usoPor === "Docente") Docente
               option(value="PTC", selected=dispositivo.informacionResguardo.usoPor === "PTC") PTC
+              option(value="PA", selected=dispositivo.informacionResguardo.usoPor === "PA") PA
               option(value="Abogado", selected=dispositivo.informacionResguardo.usoPor === "Abogado") Abogado
               option(value="Otro", selected=dispositivo.informacionResguardo.usoPor === "Otro") Otro
           div.tab-content#content8
@@ -239,8 +240,8 @@ html(lang="en")
             textarea#observaciones(name="observaciones" rows="4" cols="50")= dispositivo.anotaciones.observaciones
             label(for="recomendaciones") Recomendaciones:
             textarea#recomendaciones(name="recomendaciones" rows="4" cols="50")= dispositivo.anotaciones.recomendaciones
-            button(type="submit") 
-              img(src='/img/guardar.webp', alt='back', style='height:30px') 
+          button(type="submit") 
+            img(src='/img/guardar.webp', alt='back', style='height:30px') 
       footer &copy; Universidad Tecnol&oacute;gica de Tamaulipas Norte - 2023
     
   script.

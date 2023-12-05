@@ -1,11 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams, useNavigate, redirect } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
 import { usePut } from "../../hooks/usePut";
 import { Loading } from "./Loading";
 
 export const Details = () => {
+  const nav = useNavigate();
   const params = useParams();
   const { data, loading } = useFetch(
     "http://localhost:3000/api/device/" + params.id
@@ -100,11 +101,22 @@ export const Details = () => {
     history.back();
   };
 
+  const addDevice = (e) => {
+    e.stopPropagation();
+    redirect('http://localhost:3000/menu')
+  };
+
   return (
     <div className="content">
       <div className="filter">
         <button onClick={goBack} className="primaryButton">
           <img src="../icons/back.png" alt="" />
+        </button>
+        <button className="primaryButton">
+          <a href={"http://localhost:3000/editar/" + params.id} className="primaryButton">Editar</a>
+        </button>
+        <button className="primaryButton">
+          <a href="http://localhost:3000/menu" className="primaryButton">Agregar</a>
         </button>
       </div>
       {loading == true ? (
