@@ -26,6 +26,13 @@ export const Items = ({ data }) => {
               width="150"
               height="150"
             ></img>
+          ) : item.informacionArticulo.articulo == "All in One" ? (
+            <img
+              src="../images/allinone.jpg"
+              alt="itemImage"
+              width="150"
+              height="150"
+            ></img>
           ) : item.informacionArticulo.articulo == "Laptop" ? (
             <img
               src="../images/laptop.jpg"
@@ -34,6 +41,13 @@ export const Items = ({ data }) => {
               height="150"
             ></img>
           ) : item.informacionArticulo.articulo == "Audifonos" ? (
+            <img
+              src="../images/headphones.jpg"
+              alt="itemImage"
+              width="150"
+              height="150"
+            ></img>
+          ) : item.informacionArticulo.articulo == "Diadema" ? (
             <img
               src="../images/headphones.jpg"
               alt="itemImage"
@@ -61,6 +75,13 @@ export const Items = ({ data }) => {
               width="150"
               height="150"
             ></img>
+          ) : item.informacionArticulo.articulo == "Servidor" ? (
+            <img
+              src="../images/server.jpg"
+              alt="itemImage"
+              width="150"
+              height="150"
+            ></img>
           ) : item.informacionArticulo.articulo == "Camarasweb" ? (
             <img
               src="../images/webcam.jpg"
@@ -68,7 +89,21 @@ export const Items = ({ data }) => {
               width="150"
               height="150"
             ></img>
+          ) : item.informacionArticulo.articulo == "Camara web" ? (
+            <img
+              src="../images/webcam.jpg"
+              alt="itemImage"
+              width="150"
+              height="150"
+            ></img>
           ) : item.informacionArticulo.articulo == "Reguladores" ? (
+            <img
+              src="../images/regulador.jpg"
+              alt="itemImage"
+              width="150"
+              height="150"
+            ></img>
+          ) : item.informacionArticulo.articulo == "Regulador" ? (
             <img
               src="../images/regulador.jpg"
               alt="itemImage"

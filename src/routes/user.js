@@ -66,7 +66,9 @@ router.get("/device/search/:selection", (req, res) => {
         query = {
           $or: [
             {
-              "informacionArticulo.articulo": { $regex: "CPU", $options: "i" },
+              "informacionArticulo.articulo": { 
+                $regex: "CPU", $options: "i" 
+              },
             },
             {
               "informacionArticulo.articulo": {
@@ -89,7 +91,7 @@ router.get("/device/search/:selection", (req, res) => {
         $or: [
           {
             "informacionArticulo.articulo": {
-              $regex: "Servidores",
+              $regex: "Servidor" || "Servidores",
               $options: "i",
             },
           },
@@ -100,7 +102,9 @@ router.get("/device/search/:selection", (req, res) => {
             },
           },
           {
-            "informacionArticulo.articulo": { $regex: "HUB", $options: "i" },
+            "informacionArticulo.articulo": { 
+              $regex: "HUB", $options: "i" 
+            },
           },
         ],
       };
@@ -111,7 +115,7 @@ router.get("/device/search/:selection", (req, res) => {
         $or: [
           {
             "informacionArticulo.articulo": {
-              $regex: "Reguladores",
+              $regex: "Regulador",
               $options: "i",
             },
           },
@@ -123,7 +127,7 @@ router.get("/device/search/:selection", (req, res) => {
           },
           {
             "informacionArticulo.articulo": {
-              $regex: "Audifonos",
+              $regex: "Audifono",
               $options: "i",
             },
           },
