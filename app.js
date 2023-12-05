@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
 const port = 3000;
+require("dotenv").config();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const express = require('express');
@@ -26,9 +27,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "styles")));
 app.use(express.static(__dirname));
 
-const DB_URI = "mongodb+srv://bhaviboyy:bhavi1906@clusterestadias.vibqerh.mongodb.net/estadias";
-
-mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("Conexión exitosa a la base de datos");
     })
