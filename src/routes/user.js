@@ -55,18 +55,15 @@ router.put("/device/lifespan/:id", (req, res) => {
 router.get("/device/search/:selection", (req, res) => {
   const selection = req.params.selection;
 
+  let query = {};
 
   switch (selection) {
     case "Todos":
-      deviceSchema
-        .find()
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error }));
+      
       break;
 
     case "Computadoras":
-      deviceSchema
-        .find({
+        query = {
           $or: [
             {
               "informacionArticulo.articulo": { $regex: "CPU", $options: "i" },
@@ -84,67 +81,64 @@ router.get("/device/search/:selection", (req, res) => {
               },
             },
           ],
-        })
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error }));
+        };
       break;
 
     case "Redes":
-      deviceSchema
-        .find({
-          $or: [
-            {
-              "informacionArticulo.articulo": {
-                $regex: "Servidores",
-                $options: "i",
-              },
+      query = {
+        $or: [
+          {
+            "informacionArticulo.articulo": {
+              $regex: "Servidores",
+              $options: "i",
             },
-            {
-              "informacionArticulo.articulo": {
-                $regex: "Switch",
-                $options: "i",
-              },
+          },
+          {
+            "informacionArticulo.articulo": {
+              $regex: "Switch",
+              $options: "i",
             },
-            {
-              "informacionArticulo.articulo": { $regex: "HUB", $options: "i" },
-            },
-          ],
-        })
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error }));
+          },
+          {
+            "informacionArticulo.articulo": { $regex: "HUB", $options: "i" },
+          },
+        ],
+      };
       break;
 
     case "Otros":
-      deviceSchema
-        .find({
-          $or: [
-            {
-              "informacionArticulo.articulo": {
-                $regex: "Reguladores",
-                $options: "i",
-              },
+      query = {
+        $or: [
+          {
+            "informacionArticulo.articulo": {
+              $regex: "Reguladores",
+              $options: "i",
             },
-            {
-              "informacionArticulo.articulo": {
-                $regex: "Camarasweb",
-                $options: "i",
-              },
+          },
+          {
+            "informacionArticulo.articulo": {
+              $regex: "Camarasweb",
+              $options: "i",
             },
-            {
-              "informacionArticulo.articulo": {
-                $regex: "Audifonos",
-                $options: "i",
-              },
+          },
+          {
+            "informacionArticulo.articulo": {
+              $regex: "Audifonos",
+              $options: "i",
             },
-          ],
-        })
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error }));
+          },
+        ],
+      };
       break;
 
     default:
       break;
   }
+  deviceSchema
+  .find(query)
+  .sort({"historial.fecha": -1})
+  .then((data) => res.json(data))
+  .catch((error) => res.json({ message: error}));
 });
 
 // Search

@@ -181,7 +181,7 @@ export const Details = () => {
             </div>
           </div>
           <div className="main-form">
-            <span className="title">Detalles</span>
+            <span className="title">{data.informacionArticulo.modelo}</span>
             {data.informacionArticulo.articulo == "CPU" ||
             data.informacionArticulo.articulo == "Laptop" ||
             data.informacionArticulo.articulo == "Allinone" ? (
@@ -261,6 +261,22 @@ export const Details = () => {
                   />
                 </div>
                 <div className="input-box">
+                  <span className="details">Departamento</span>
+                  <input
+                    type="text"
+                    placeholder={data.informacionResguardo.departamentoResguardo}
+                    disabled
+                  />
+                </div>
+                <div className="input-box">
+                  <span className="details">Resguardante</span>
+                  <input
+                    type="text"
+                    placeholder={data.informacionResguardo.resguardante}
+                    disabled
+                  />
+                </div>
+                <div className="input-box">
                   <span className="details">Tiempo de Vida Útil</span>
                   <div className="lifetime">
                     <input
@@ -281,6 +297,14 @@ export const Details = () => {
                   <input
                     type="text"
                     placeholder={data.informacionArticulo.id}
+                    disabled
+                  />
+                </div>
+                <div className="input-box">
+                  <span className="details">Departamento</span>
+                  <input
+                    type="text"
+                    placeholder={data.informacionResguardo.departamentoResguardo}
                     disabled
                   />
                 </div>
